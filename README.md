@@ -5,6 +5,22 @@ This DeepStream setup now supports:
  - Dynamic stream add/remove via REST API
  - Dynamic pipeline creation/deletion that is independent from one another
  - This app was tested with CUDA_VER=12.8 in L20 GPU
+
+## Key Features
+🔄 Dynamic Multi-Pipeline
+ - Independent Instances: Each pipeline runs in its own process
+ - Isolated REST APIs: Each on unique port (9000, 9001, ...)
+ - No Interference: Failure in one pipeline doesn't affect others
+
+📡 Dynamic Stream Management
+ - Runtime Add/Remove: Streams can be added/removed without restart
+ - High Capacity: ~120 concurrent, 15 FPS streams total across all pipelines
+ - Multiple Protocols: RTSP, SRT, File sources
+
+⚡ Performance Optimizations
+ - Queue-Based Decoupling: 10-buffer queues prevent blocking
+ - Batch Processing: All streams processed in single GPU batch
+ - GPU-Accelerated: CUDA-optimized converters and inference
    
 ## Quick Start
 
