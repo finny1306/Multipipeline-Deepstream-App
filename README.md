@@ -4,6 +4,8 @@
 This DeepStream setup now supports: 
  - Dynamic stream add/remove via REST API
  - Dynamic pipeline creation/deletion that is independent from one another
+ - This app was tested with CUDA_VER=12.8 in L20 GPU
+   
 ## Quick Start
 
 ### 1. Initial Setup
