@@ -1,0 +1,77 @@
+infer_config {
+  unique_id: 1
+  gpu_ids: [0]
+  max_batch_size: 128
+
+  backend {
+    triton {
+      model_name: "yolo-ppe"
+      # version1: opt 8, max 128
+      # version2: opt16, max 128
+      # version3: opt32, max 128
+      # version4: opt64, max 128 
+      version: -1
+      model_repo {
+        root: "/workspace/model_repository"
+        strict_model_config: true
+      }
+      #grpc {
+      #  url: "127.0.0.1:8001"
+      #  enable_cuda_buffer_sharing: true
+      #}
+    }
+    inputs: [{
+      name: "images"      # Ultralytics exported TensorRT plan uses "images"
+    }]
+    outputs: [{
+      name: "output0"     # Ultralytics YOLOv11 TensorRT plan output name
+    }]
+  }
+
+  preprocess {
+    network_format: IMAGE_FORMAT_RGB  
+    tensor_order: TENSOR_ORDER_LINEAR
+    tensor_name: "images"
+    maintain_aspect_ratio: 1
+    symmetric_padding: 1
+    frame_scaling_hw: FRAME_SCALING_HW_GPU
+    frame_scaling_filter: 1
+    normalize {
+      scale_factor: 0.0039215697906911373   # = 1/255.0
+      channel_offsets: [0, 0, 0]
+    }
+  }
+
+  postprocess {
+    labelfile_path: "/workspace/configs/labels/ppe_labels.txt"
+    detection {
+      num_detected_classes: 7
+      custom_parse_bbox_func: "NvDsInferParseYoloCuda"
+      per_class_params {
+        key: 0
+        value {
+          pre_threshold: 0.35
+        }
+      }
+      nms {
+        confidence_threshold:0.5
+        iou_threshold: 0.45
+        topk: 300
+      }
+    }
+  }
+  custom_lib {
+    path: "/workspace/lib/DeepStream-Yolo/nvdsinfer_custom_impl_Yolo/libnvdsinfer_custom_impl_Yolo.so"
+  }
+
+  extra {
+    copy_input_to_host_buffers: false
+    output_buffer_pool_size: 4
+  }
+}
+
+input_control {
+  process_mode: PROCESS_MODE_FULL_FRAME
+  operate_on_gie_id: -1
+  interval: 0 # process every n frames
+}

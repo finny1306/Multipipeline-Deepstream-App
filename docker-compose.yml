@@ -1,0 +1,62 @@
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    ports:
+      - "8554:8554"  # RTSP
+      - "8889:8889" # WebRTC
+      - "8890:8890/udp" # SRT (Standard port)
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+          
+  deepstream:
+    image: nvcr.io/nvidia/deepstream:8.0-triton-multiarch
+    command: tail -f /dev/null
+    privileged: true
+    ports:
+      - "8555:8554"  # RTSP output port
+      - "9000:9000"  # REST API port 
+      - "9000-9020:9000-9020"   # ranged for 20 pipelines
+      - "8000:8000"  # Triton HTTP
+      - "8001:8001"  # Triton gRPC
+      - "8002:8002"  # Triton Metrics
+    volumes:
+      - ./:/workspace
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video,graphics,display
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    depends_on:
+      mediamtx:
+        condition: service_started
+        
+  # Triton Server SDK for testing
+  triton-sdk:
+    image: nvcr.io/nvidia/tritonserver:25.03-py3-sdk
+    privileged: true
+    command: tail -f /dev/null
+    volumes:
+      - ./:/workspace
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video,graphics
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    network_mode: host
+    restart: unless-stopped
+    depends_on:
+      deepstream:
+        condition: service_started

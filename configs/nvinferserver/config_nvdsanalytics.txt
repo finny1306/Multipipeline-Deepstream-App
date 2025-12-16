@@ -1,0 +1,19 @@
+[property]
+enable=1
+config-width=1920
+config-height=1080
+osd-mode=2
+display-font-size=12
+
+[line-crossing-stream-0]
+enable=1
+# Format: x1;y1;x2;y2;x1;y1;x2;y2 (Line coordinates and Direction vector)
+# This draws a horizontal line in the middle
+line-crossing-Entry=50;540;1800;540;960;0;960;1080
+class-id=0 
+extended=1
+mode=balanced
+
+# Note: In a real scenario with 50 streams, you typically need 
+# [line-crossing-stream-0] ... [line-crossing-stream-49]
+# Or, if they use the same camera angle, DeepStream reuses stream-0 config for all.

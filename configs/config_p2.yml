@@ -1,0 +1,82 @@
+# yolo11s only: 15120 MiB
+rest-server:
+  within_multiurisrcbin: 1
+
+server-app-ctx:
+  #uri_list: file:///workspace/test-media/sample_1080p_h264_15fps.mp4
+  httpIp: "0.0.0.0"
+  httpPort: "9002" # Will be overridden by orchestrator
+  pipeline_width: 1920
+  pipeline_height: 1080
+  maxBatchSize: 50
+  batched_push_timeout: 50000
+  live_source: 1
+  drop_pipeline_eos: 1
+  mux-config-file: "/workspace/configs/nvinferserver/custom_nvstreammux_config.txt"
+
+multiurisrcbin:
+  port: 9002 # Ignored if within_multiurisrcbin=1
+  live-source: 1
+  width: 1920
+  height: 1080
+  batched-push-timeout: 50000
+  max-batch-size: 50
+  disable-passthrough: 0
+  drop-pipeline-eos: 1
+
+
+# --- Inference Setup (Shared Triton) ---
+
+primary-gie:
+  enable: 1
+  plugin-type: 1 # nvinferserver
+  config-file-path: /workspace/configs/nvinferserver/nvinferserver_primary_yolo11s.txt
+  batch-size: 50
+
+tracker:
+  enable: 1
+  tracker-width: 640
+  tracker-height: 384
+  ll-lib-file: /opt/nvidia/deepstream/deepstream/lib/libnvds_nvmultiobjecttracker.so
+  ll-config-file: /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_tracker_NvDCF_perf.yml
+  gpu-id: 0
+  display-tracking-id: 1
+
+# --- Secondary Models ---
+
+secondary-gie1:
+  enable: 1
+  plugin-type: 1 # nvinferserver
+  config-file-path: /workspace/configs/nvinferserver/nvinferserver_secondary_ppe.txt
+  operate-on-gie-id: 2 
+  operate-on-class-ids: 0 
+  batch-size: 50
+
+
+# --- Processing & Output ---
+
+preprocess:
+  enable: 0
+  config-file: config_preprocess.txt
+
+analytics:
+  enable: 1
+  config-file: /workspace/configs/nvinferserver/config_nvdsanalytics.txt
+
+tiler:
+  enable: 0 # Disable for performance if not viewing
+  width: 1920
+  height: 1080
+
+osd:
+  enable: 0 # Disable for performance
+  process-mode: 1
+  display-text: 1
+
+encoder:
+  enable: 1
+  codec: 1 # 1=H264, 2=H265
+
+sink:
+  enable: 0 # 1=Filesink, 0=Fakesink/EGL based on context
+  qos: 0

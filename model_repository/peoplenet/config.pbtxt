@@ -1,0 +1,41 @@
+name: "peoplenet"
+platform: "tensorrt_plan"
+max_batch_size: 64
+input [
+  {
+    name: "input_1:0"
+    data_type: TYPE_FP32
+    format: FORMAT_NCHW
+    dims: [ 3, 544, 960 ]
+  }
+]
+output [
+  {
+    name: "output_cov/Sigmoid:0"
+    data_type: TYPE_FP32
+    dims: [ 3, 34, 60 ]
+  },
+  {
+    name: "output_bbox/BiasAdd:0"
+    data_type: TYPE_FP32
+    dims: [ 12, 34, 60 ]
+  }
+]
+
+instance_group [
+  {
+    count: 2
+    kind: KIND_GPU
+  }
+]
+
+version_policy: { 
+  specific: { 
+    versions: [1]
+    }
+  }
+
+dynamic_batching {
+  preferred_batch_size: [ 32, 64 ]  
+  max_queue_delay_microseconds: 1000
+}

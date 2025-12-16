@@ -1,0 +1,89 @@
+[WARNING] Unknown param found in gie: operate-on-class-id
+[WARNING] Unknown param found in gie: operate-on-gie-id
+Config file not provided for group secondary-gie2
+!! [WARNING]  "infer" group not enabled. Use "enable: 1" to set properties.
+!! [WARNING]  "infer" group not enabled. Use "enable: 1" to set properties.
+Opening in BLOCKING MODE 
+Civetweb version: v1.16
+0:00:00.355677173 [33m64904[00m 0x5561e4f21770 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:365:validatePluginConfig:<sgie1>[00m warning: Configuration file batch-size reset to: 50
+0:00:00.355824490 [33m64904[00m 0x5561e4f21770 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:440:validatePluginConfig:<sgie1>[00m warning: NvInferServer asynchronous mode is applicable for secondaryclassifiers only. Turning off asynchronous mode
+Server running at port: 9000
+INFO: TrtISBackend id:4 initialized model: yolo-ppe
+gstnvtracker: Loading low-level lib at /opt/nvidia/deepstream/deepstream/lib/libnvds_nvmultiobjecttracker.so
+[NvMultiObjectTracker] Initialized
+0:00:00.966084113 [33m64904[00m 0x5561e4f21770 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:365:validatePluginConfig:<primary-inference>[00m warning: Configuration file batch-size reset to: 50
+INFO: TrtISBackend id:1 initialized model: yolo11s
+Pipeline running with standardized queues...
+WARNING from element sgie1: Configuration file batch-size reset to: 50
+WARNING from element sgie1: NvInferServer asynchronous mode is applicable for secondaryclassifiers only. Turning off asynchronous mode
+WARNING from element primary-inference: Configuration file batch-size reset to: 50
+
+
+
+
+
+
+
+uri:/api/v1/stream/get-stream-info
+method:GET
+
+
+
+
+
+uri:/api/v1/stream/add
+method:POST
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (19.80)	FPS_1 (15.00)	FPS_2 (14.80)	
+uri:/api/v1/stream/get-stream-info
+method:GET
+**PERF : FPS_0 (19.90)	FPS_1 (15.00)	FPS_2 (15.00)	
+**PERF : FPS_0 (19.86)	FPS_1 (15.00)	FPS_2 (14.93)	
+**PERF : FPS_0 (19.89)	FPS_1 (14.99)	FPS_2 (14.99)	
+**PERF : FPS_0 (19.87)	FPS_1 (15.00)	FPS_2 (15.00)	FPS_3 (15.00)	FPS_4 (14.80)	FPS_5 (15.00)	
+**PERF : FPS_0 (19.89)	FPS_1 (14.99)	FPS_2 (14.93)	FPS_3 (14.99)	FPS_4 (14.99)	FPS_5 (14.99)	
+nvstreammux: Successfully handled EOS for source_id=0
+gstnvtracker: Successfully removed stream from low level tracker with Id 0.
+gstnvtracker: Successfully removed stream 0.
+**PERF : FPS_0 (0.00)	FPS_1 (15.02)	FPS_2 (14.99)	FPS_3 (15.06)	FPS_4 (14.93)	FPS_5 (14.99)	
+**PERF : FPS_0 (0.00)	FPS_1 (14.99)	FPS_2 (14.99)	FPS_3 (14.99)	FPS_4 (14.94)	FPS_5 (14.94)	
+uri:/api/v1/stream/remove
+method:POST
+gstnvtracker: Successfully removed stream from low level tracker with Id 500000000.
+gstnvtracker: Successfully removed stream 5.
+uri:/api/v1/stream/get-stream-info
+method:GET
+**PERF : FPS_0 (0.00)	FPS_1 (15.02)	FPS_2 (14.99)	FPS_3 (15.03)	FPS_4 (14.99)	FPS_5 (13.03)	
+**PERF : FPS_0 (0.00)	FPS_1 (15.01)	FPS_2 (15.01)	FPS_3 (15.02)	FPS_4 (15.02)	FPS_5 (10.86)	
+**PERF : FPS_0 (0.00)	FPS_1 (15.01)	FPS_2 (15.01)	FPS_3 (15.02)	FPS_4 (14.99)	FPS_5 (9.31)	
+**PERF : FPS_0 (0.00)	FPS_1 (15.01)	FPS_2 (14.99)	FPS_3 (15.01)	FPS_4 (14.99)	FPS_5 (8.14)	
+uri:/api/v1/stream/remove
+method:POST
+gstnvtracker: Successfully removed stream from low level tracker with Id 200000000.
+gstnvtracker: Successfully removed stream 2.
+**PERF : FPS_0 (0.00)	FPS_1 (15.01)	FPS_2 (14.78)	FPS_3 (15.01)	FPS_4 (14.99)	FPS_5 (7.24)	
+uri:/api/v1/stream/get-stream-info
+method:GET
+**PERF : FPS_0 (0.00)	FPS_1 (15.01)	FPS_2 (13.72)	FPS_3 (15.01)	FPS_4 (14.99)	FPS_5 (6.52)	
