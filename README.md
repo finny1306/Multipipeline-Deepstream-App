@@ -204,9 +204,9 @@ docker compose logs -f deepstream
 ## Important Notes
 
 1. Each `camera_id` must be unique
-2. Maximum 16 concurrent streams (configurable in config)
-3. REST API requires `type=5` (nvmultiurisrcbin) in source configuration
-4. Triton server must be running before DeepStream starts
+2. Maximum 120 concurrent streams for best results for 1 pipeline (configurable in config)
+3. Make sure all ports in config and when spawning a pipeline has the same value
+4. Max-batch size == number of max streams that can be added
 5. Changes take effect immediately without restart
 
 ## Performance Tuning
