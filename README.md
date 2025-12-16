@@ -1,8 +1,9 @@
 # DeepStream REST API - Quick Start Guide
 
 ## Overview
-Your DeepStream setup now supports dynamic stream add/remove via REST API while maintaining Triton inference.
-
+This DeepStream setup now supports: 
+ - Dynamic stream add/remove via REST API
+ - Dynamic pipeline creation/deletion that is independent from one another
 ## Quick Start
 
 ### 1. Initial Setup
@@ -15,6 +16,30 @@ docker compose down && docker compose up -d
 ```bash
 python3 -m venv testenv
 ```
+**Install additional libs and compile the app**
+```bash
+docker compose exec deepstream bash
+./install.sh
+./user_additional_install.sh
+./update_rtpmanager.sh
+```
+**Compile the App**
+```bash
+# Run the new script
+/workspace/scripts/dynamic_deepstream_server_with_sgie.sh
+
+# ensure the message "Compilation finished" is seen. If not, do:
+cd /opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-server
+export CUDA_VER=12.8
+make clean && make
+```
+
+**Get the YOLO Custom Parser**
+```bash
+# Can get it by following the steps in https://github.com/NVIDIA-AI-IOT/deepstream_tools.git
+```
+
+### 2. Starting 
 **Terminal 1: Run Stream**
 ```bash
 source multipipeline-deepstream/testenv/bin/activate
@@ -35,8 +60,9 @@ python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipip
 ```bash
 cd /root/multipipeline-deepstream
 docker compose exec deepstream bash
+```
 
-# Run the python manager
+**Run the python manager**
 ```bash
 # use the venv 
 source workspace/testenv/bin/activate
@@ -44,7 +70,7 @@ cd /workspace
 python manager.py
 ```
 
-### 2. Add New Pipelines
+### 3. Add New Pipelines
 **To Add A New one**
 ```bash
 # In a new terminal, inside the docker container, run
@@ -60,11 +86,11 @@ curl -X POST http://localhost:5000/pipelines/spawn \
 curl -X DELETE "http://localhost:5000/pipelines/pipeline_id"
 ```
 
-**To Kill All**
+**To Kill All** \
 Simply ctrl + C in the python manager terminal.
 
 
-### 3. Test REST API
+### 4. Test REST API
 **Option A: Use Python Client**
 ```bash
 # Call the pipeline via port first
