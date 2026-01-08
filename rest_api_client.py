@@ -46,7 +46,7 @@ class DeepStreamRESTClient:
     
     def add_stream(self, camera_id: str, camera_name: str, rtsp_url: str, 
                    resolution: str = "1920x1080", codec: str = "h264", 
-                   framerate: int = 10) -> Dict:
+                   framerate: int = 10, protocol: str = "tcp") -> Dict:
         """Add a new video stream"""
         payload = {
             "key": "sensor",
@@ -58,7 +58,8 @@ class DeepStreamRESTClient:
                 "metadata": {
                     "resolution": resolution,
                     "codec": codec,
-                    "framerate": framerate
+                    "framerate": framerate,
+                    "protocols": protocols
                 }
             },
             "headers": {
@@ -134,6 +135,8 @@ def main():
     add_parser.add_argument("--id", required=True, help="Camera ID")
     add_parser.add_argument("--name", required=True, help="Camera name")
     add_parser.add_argument("--url", required=True, dest="stream_url", help="RTSP URL")
+    add_parser.add_argument("--protocol", default="tcp", choices=["tcp", "udp"],
+                           help="RTSP protocol (default: tcp)")
     
     # Remove stream
     remove_parser = subparsers.add_parser("remove", help="Remove a stream")

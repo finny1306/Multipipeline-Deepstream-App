@@ -12,7 +12,7 @@ server-app-ctx:
   maxBatchSize: 50
   batched_push_timeout: 50000
   live_source: 1          # 0 for file sources to preserve timestamps
-  drop_pipeline_eos: 0    # 0 to properly handle EOS for file output
+  drop_pipeline_eos: 1    # 0 to properly handle EOS for file output
   mux-config-file: "/workspace/configs/nvinferserver/custom_nvstreammux_config.txt"
 
 multiurisrcbin:
@@ -23,7 +23,7 @@ multiurisrcbin:
   batched-push-timeout: 50000
   max-batch-size: 50
   disable-passthrough: 0
-  drop-pipeline-eos: 0
+  drop-pipeline-eos: 1
 
 
 # --- Inference Setup ---
@@ -67,8 +67,8 @@ tiler:
   enable: 1
   width: 1920
   height: 1080
-  rows: 1
-  columns: 1
+  rows: 2
+  columns: 2
 
 # FIXED: Only use valid OSD properties (see gst-inspect-1.0 nvdsosd)
 osd:
