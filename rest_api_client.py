@@ -12,7 +12,7 @@ from datetime import datetime, UTC  # Updated import to include UTC
 from typing import Dict, Any
 
 class DeepStreamRESTClient:
-    def __init__(self, base_url: str = "http://localhost:9000"):
+    def __init__(self, base_url: str = "http://localhost:9002"):
         self.base_url = base_url
         self.api_version = "v1"
         
@@ -119,7 +119,7 @@ class DeepStreamRESTClient:
 
 def main():
     parser = argparse.ArgumentParser(description="DeepStream REST API Client")
-    parser.add_argument("--url", default="http://localhost:9000", help="Base URL")
+    parser.add_argument("--url", default="http://localhost:9002", help="Base URL")
     
     subparsers = parser.add_subparsers(dest="command", help="Commands")
     

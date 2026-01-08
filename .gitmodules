@@ -1,3 +1,0 @@
-[submodule "lib/DeepStream-Yolo"]
-	path = lib/DeepStream-Yolo
-	url = https://github.com/NVIDIA-AI-IOT/deepstream_tools.git

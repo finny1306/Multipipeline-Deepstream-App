@@ -1,0 +1,323 @@
+Using GPU: NVIDIA L20
+
+=== SINK CONFIGURATION ===
+Sink Type: 2 (1=File, 2=RTSP, 3=Display)
+Output File: /workspace/test-media/p2_output_fixed_v2.mkv
+Framerate: 15/1
+Sync: 1
+==========================
+
+Using Custom Tiler Layout: 1 x 1
+[CONFIG] OSD input format: RGBA
+[CONFIG] Encoder input caps: video/x-raw(memory:NVMM), format=NV12, width=1920, height=1080, framerate=(fraction)15/1
+[CONFIG] Using H264 Encoder
+
+(deepstream-server-app:56891): GLib-GObject-CRITICAL **: 03:07:44.691: g_object_set_is_valid_property: object class 'nvv4l2h264enc' has no property named 'maxperf-enable'
+[CONFIG] Encoder: IDR=30, bitrate=4Mbps
+[CONFIG] Selecting RTSP Sink
+
+*** RTSP Streaming at rtsp://localhost:8554/ds-test ***
+
+[DEBUG] OSD sink pad probe added for detection monitoring
+
+=== STARTING PIPELINE ===
+Opening in BLOCKING MODE 
+Civetweb version: v1.16
+0:00:00.141558488 [36m56891[00m 0x5c38653d8670 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:365:validatePluginConfig:<primary-inference>[00m warning: Configuration file batch-size reset to: 50
+0:00:00.141590448 [36m56891[00m 0x5c38653d8670 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:371:validatePluginConfig:<primary-inference>[00m warning: Configuration file unique-id reset to: 2
+Server running at port: 9002
+INFO: TrtISBackend id:2 initialized model: yolo11s
+Pipeline running. Waiting for detections...
+Pipeline state: NULL -> READY
+WARNING from element primary-inference: Configuration file batch-size reset to: 50
+Warning details: gstnvinferserver_impl.cpp(365): validatePluginConfig (): /GstPipeline:dsserver-pipeline/GstNvInferServer:primary-inference
+WARNING from element primary-inference: Configuration file unique-id reset to: 2
+Warning details: gstnvinferserver_impl.cpp(371): validatePluginConfig (): /GstPipeline:dsserver-pipeline/GstNvInferServer:primary-inference
+Pipeline state: READY -> PAUSED
+Pipeline state: PAUSED -> PLAYING
+
+
+
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+
+
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 150: source_id=0, num_objects=8
+  [OBJ 0] class_id=0, confidence=0.83, label='person', bbox=[70,468,143,303]
+  [OBJ 1] class_id=0, confidence=0.39, label='person', bbox=[414,483,22,46]
+  [OBJ 2] class_id=2, confidence=0.85, label='car', bbox=[1236,491,296,114]
+  [OBJ 3] class_id=2, confidence=0.82, label='car', bbox=[608,481,111,82]
+  [OBJ 4] class_id=2, confidence=0.64, label='car', bbox=[549,477,69,49]
+[DETECTION SUMMARY] Frame 150: Total objects detected = 8
+**PERF : FPS_0 (14.99)	
+**PERF : FPS_0 (15.06)	
+[DEBUG] Frame 300: source_id=0, num_objects=9
+  [OBJ 0] class_id=0, confidence=0.82, label='person', bbox=[312,477,62,161]
+  [OBJ 1] class_id=0, confidence=0.74, label='person', bbox=[411,491,52,140]
+  [OBJ 2] class_id=0, confidence=0.67, label='person', bbox=[373,486,48,146]
+  [OBJ 3] class_id=2, confidence=0.91, label='car', bbox=[1039,483,198,107]
+  [OBJ 4] class_id=2, confidence=0.86, label='car', bbox=[668,453,310,250]
+[DETECTION SUMMARY] Frame 300: Total objects detected = 9
+**PERF : FPS_0 (14.99)	
+**PERF : FPS_0 (15.03)	
+[DEBUG] Frame 450: source_id=0, num_objects=10
+  [OBJ 0] class_id=0, confidence=0.74, label='person', bbox=[408,478,26,78]
+  [OBJ 1] class_id=0, confidence=0.60, label='person', bbox=[444,489,32,67]
+  [OBJ 2] class_id=0, confidence=0.43, label='person', bbox=[435,487,23,69]
+  [OBJ 3] class_id=2, confidence=0.90, label='car', bbox=[659,483,206,164]
+  [OBJ 4] class_id=2, confidence=0.69, label='car', bbox=[596,480,71,56]
+[DETECTION SUMMARY] Frame 450: Total objects detected = 10
+**PERF : FPS_0 (14.99)	
+**PERF : FPS_0 (15.02)	
+[DEBUG] Frame 600: source_id=0, num_objects=11
+  [OBJ 0] class_id=0, confidence=0.84, label='person', bbox=[78,467,132,308]
+  [OBJ 1] class_id=0, confidence=0.80, label='person', bbox=[4,603,148,206]
+  [OBJ 2] class_id=0, confidence=0.66, label='person', bbox=[412,468,90,263]
+  [OBJ 3] class_id=0, confidence=0.53, label='person', bbox=[383,480,40,124]
+  [OBJ 4] class_id=1, confidence=0.62, label='bicycle', bbox=[484,583,56,166]
+[DETECTION SUMMARY] Frame 600: Total objects detected = 11
+
+(deepstream-server-app:56891): GLib-GObject-CRITICAL **: 03:08:48.334: g_object_get_is_valid_property: object class 'GstUDPSrc' has no property named 'pt'
+**PERF : FPS_0 (14.99)	
+**PERF : FPS_0 (15.02)	
+[DEBUG] Frame 750: source_id=0, num_objects=10
+  [OBJ 0] class_id=0, confidence=0.80, label='person', bbox=[82,471,127,299]
+  [OBJ 1] class_id=0, confidence=0.65, label='person', bbox=[9,607,143,202]
+  [OBJ 2] class_id=0, confidence=0.51, label='person', bbox=[416,481,28,70]
+  [OBJ 3] class_id=2, confidence=0.94, label='car', bbox=[1210,489,700,345]
+  [OBJ 4] class_id=2, confidence=0.91, label='car', bbox=[707,477,210,131]
+[DETECTION SUMMARY] Frame 750: Total objects detected = 10
+**PERF : FPS_0 (14.99)	
+**PERF : FPS_0 (15.01)	
+[DEBUG] Frame 900: source_id=0, num_objects=11
+  [OBJ 0] class_id=0, confidence=0.80, label='person', bbox=[80,462,135,307]
+  [OBJ 1] class_id=0, confidence=0.36, label='person', bbox=[452,478,26,48]
+  [OBJ 2] class_id=2, confidence=0.96, label='car', bbox=[816,466,934,606]
+  [OBJ 3] class_id=2, confidence=0.91, label='car', bbox=[1449,502,394,148]
+  [OBJ 4] class_id=2, confidence=0.84, label='car', bbox=[613,485,99,74]
+[DETECTION SUMMARY] Frame 900: Total objects detected = 11
+**PERF : FPS_0 (14.99)	
+**PERF : FPS_0 (15.01)	
+[DEBUG] Frame 1050: source_id=0, num_objects=10
+  [OBJ 0] class_id=0, confidence=0.82, label='person', bbox=[341,482,47,131]
+  [OBJ 1] class_id=0, confidence=0.75, label='person', bbox=[391,489,37,121]
+  [OBJ 2] class_id=0, confidence=0.72, label='person', bbox=[421,494,38,114]
+  [OBJ 3] class_id=2, confidence=0.92, label='car', bbox=[702,481,303,226]
+  [OBJ 4] class_id=2, confidence=0.87, label='car', bbox=[1191,486,274,116]
+[DETECTION SUMMARY] Frame 1050: Total objects detected = 10
+**PERF : FPS_0 (15.01)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 1200: source_id=0, num_objects=10
+  [OBJ 0] class_id=0, confidence=0.90, label='person', bbox=[295,446,183,416]
+  [OBJ 1] class_id=0, confidence=0.87, label='person', bbox=[1,392,199,618]
+  [OBJ 2] class_id=0, confidence=0.63, label='person', bbox=[106,464,104,308]
+  [OBJ 3] class_id=0, confidence=0.48, label='person', bbox=[436,478,26,61]
+  [OBJ 4] class_id=0, confidence=0.37, label='person', bbox=[462,483,27,74]
+[DETECTION SUMMARY] Frame 1200: Total objects detected = 10
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 1350: source_id=0, num_objects=11
+  [OBJ 0] class_id=0, confidence=0.85, label='person', bbox=[84,470,127,299]
+  [OBJ 1] class_id=0, confidence=0.77, label='person', bbox=[2,604,152,206]
+  [OBJ 2] class_id=0, confidence=0.67, label='person', bbox=[463,471,86,182]
+  [OBJ 3] class_id=0, confidence=0.56, label='person', bbox=[394,483,39,104]
+  [OBJ 4] class_id=2, confidence=0.93, label='car', bbox=[944,554,974,515]
+[DETECTION SUMMARY] Frame 1350: Total objects detected = 11
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.01)	
+[DEBUG] Frame 1500: source_id=0, num_objects=9
+  [OBJ 0] class_id=0, confidence=0.85, label='person', bbox=[78,471,131,298]
+  [OBJ 1] class_id=0, confidence=0.72, label='person', bbox=[5,606,148,202]
+  [OBJ 2] class_id=0, confidence=0.37, label='person', bbox=[415,482,28,62]
+  [OBJ 3] class_id=2, confidence=0.91, label='car', bbox=[862,478,238,139]
+  [OBJ 4] class_id=2, confidence=0.89, label='car', bbox=[1196,494,312,136]
+[DETECTION SUMMARY] Frame 1500: Total objects detected = 9
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.01)	
+[DEBUG] Frame 1650: source_id=0, num_objects=14
+  [OBJ 0] class_id=0, confidence=0.90, label='person', bbox=[94,488,178,437]
+  [OBJ 1] class_id=0, confidence=0.84, label='person', bbox=[0,483,134,451]
+  [OBJ 2] class_id=0, confidence=0.44, label='person', bbox=[413,484,19,44]
+  [OBJ 3] class_id=0, confidence=0.41, label='person', bbox=[446,482,20,44]
+  [OBJ 4] class_id=2, confidence=0.95, label='car', bbox=[822,486,766,543]
+[DETECTION SUMMARY] Frame 1650: Total objects detected = 14
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.01)	
+[DEBUG] Frame 1800: source_id=0, num_objects=10
+  [OBJ 0] class_id=0, confidence=0.77, label='person', bbox=[368,479,41,117]
+  [OBJ 1] class_id=0, confidence=0.60, label='person', bbox=[428,486,43,101]
+  [OBJ 2] class_id=0, confidence=0.45, label='person', bbox=[405,489,32,100]
+  [OBJ 3] class_id=2, confidence=0.95, label='car', bbox=[840,507,873,566]
+  [OBJ 4] class_id=2, confidence=0.91, label='car', bbox=[1633,495,286,196]
+[DETECTION SUMMARY] Frame 1800: Total objects detected = 10
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 1950: source_id=0, num_objects=14
+  [OBJ 0] class_id=0, confidence=0.86, label='person', bbox=[217,435,124,358]
+  [OBJ 1] class_id=0, confidence=0.85, label='person', bbox=[398,466,105,268]
+  [OBJ 2] class_id=0, confidence=0.75, label='person', bbox=[77,464,130,306]
+  [OBJ 3] class_id=0, confidence=0.58, label='person', bbox=[5,594,150,215]
+  [OBJ 4] class_id=0, confidence=0.50, label='person', bbox=[380,488,40,135]
+[DETECTION SUMMARY] Frame 1950: Total objects detected = 14
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 2100: source_id=0, num_objects=10
+  [OBJ 0] class_id=0, confidence=0.85, label='person', bbox=[69,469,141,301]
+  [OBJ 1] class_id=0, confidence=0.69, label='person', bbox=[1,591,148,220]
+  [OBJ 2] class_id=0, confidence=0.66, label='person', bbox=[404,480,35,96]
+  [OBJ 3] class_id=0, confidence=0.60, label='person', bbox=[479,482,53,132]
+  [OBJ 4] class_id=2, confidence=0.92, label='car', bbox=[727,491,322,219]
+[DETECTION SUMMARY] Frame 2100: Total objects detected = 10
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 2250: source_id=0, num_objects=12
+  [OBJ 0] class_id=0, confidence=0.81, label='person', bbox=[76,470,133,300]
+  [OBJ 1] class_id=0, confidence=0.56, label='person', bbox=[2,606,151,203]
+  [OBJ 2] class_id=0, confidence=0.40, label='person', bbox=[469,480,36,64]
+  [OBJ 3] class_id=0, confidence=0.37, label='person', bbox=[430,480,20,55]
+  [OBJ 4] class_id=0, confidence=0.36, label='person', bbox=[1284,571,146,148]
+[DETECTION SUMMARY] Frame 2250: Total objects detected = 12
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 2400: source_id=0, num_objects=12
+  [OBJ 0] class_id=0, confidence=0.88, label='person', bbox=[266,489,122,273]
+  [OBJ 1] class_id=0, confidence=0.82, label='person', bbox=[141,473,86,288]
+  [OBJ 2] class_id=0, confidence=0.69, label='person', bbox=[210,489,86,289]
+  [OBJ 3] class_id=0, confidence=0.41, label='person', bbox=[430,486,19,41]
+  [OBJ 4] class_id=2, confidence=0.93, label='car', bbox=[723,513,413,278]
+[DETECTION SUMMARY] Frame 2400: Total objects detected = 12
+**PERF : FPS_0 (15.00)	
+uri:/api/v1/enc/bitrate
+method:POST
+**PERF : FPS_0 (15.01)	
+[DEBUG] Frame 2550: source_id=0, num_objects=10
+  [OBJ 0] class_id=0, confidence=0.73, label='person', bbox=[377,481,35,100]
+  [OBJ 1] class_id=0, confidence=0.63, label='person', bbox=[410,489,30,87]
+  [OBJ 2] class_id=0, confidence=0.59, label='person', bbox=[439,493,35,84]
+  [OBJ 3] class_id=2, confidence=0.89, label='car', bbox=[1741,513,178,373]
+  [OBJ 4] class_id=2, confidence=0.82, label='car', bbox=[606,482,134,102]
+[DETECTION SUMMARY] Frame 2550: Total objects detected = 10
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 2700: source_id=0, num_objects=11
+  [OBJ 0] class_id=0, confidence=0.86, label='person', bbox=[303,453,90,249]
+  [OBJ 1] class_id=0, confidence=0.85, label='person', bbox=[82,469,130,301]
+  [OBJ 2] class_id=0, confidence=0.77, label='person', bbox=[431,464,85,200]
+  [OBJ 3] class_id=0, confidence=0.73, label='person', bbox=[388,486,36,111]
+  [OBJ 4] class_id=0, confidence=0.62, label='person', bbox=[3,608,150,202]
+[DETECTION SUMMARY] Frame 2700: Total objects detected = 11
+**PERF : FPS_0 (15.01)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 2850: source_id=0, num_objects=12
+  [OBJ 0] class_id=0, confidence=0.86, label='person', bbox=[83,471,127,298]
+  [OBJ 1] class_id=0, confidence=0.78, label='person', bbox=[3,602,148,208]
+  [OBJ 2] class_id=0, confidence=0.63, label='person', bbox=[408,479,32,86]
+  [OBJ 3] class_id=0, confidence=0.45, label='person', bbox=[488,485,38,101]
+  [OBJ 4] class_id=2, confidence=0.94, label='car', bbox=[1255,526,664,376]
+[DETECTION SUMMARY] Frame 2850: Total objects detected = 12
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 3000: source_id=0, num_objects=5
+  [OBJ 0] class_id=0, confidence=0.88, label='person', bbox=[85,471,124,298]
+  [OBJ 1] class_id=0, confidence=0.49, label='person', bbox=[0,554,130,286]
+  [OBJ 2] class_id=2, confidence=0.63, label='car', bbox=[575,489,58,46]
+  [OBJ 3] class_id=2, confidence=0.40, label='car', bbox=[529,471,30,37]
+  [OBJ 4] class_id=5, confidence=0.95, label='bus', bbox=[628,16,926,968]
+[DETECTION SUMMARY] Frame 3000: Total objects detected = 5
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 3150: source_id=0, num_objects=11
+  [OBJ 0] class_id=0, confidence=0.88, label='person', bbox=[376,490,86,196]
+  [OBJ 1] class_id=0, confidence=0.81, label='person', bbox=[231,475,77,220]
+  [OBJ 2] class_id=0, confidence=0.62, label='person', bbox=[303,506,50,172]
+  [OBJ 3] class_id=0, confidence=0.54, label='person', bbox=[339,496,54,193]
+  [OBJ 4] class_id=2, confidence=0.90, label='car', bbox=[694,489,298,208]
+[DETECTION SUMMARY] Frame 3150: Total objects detected = 11
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 3300: source_id=0, num_objects=6
+  [OBJ 0] class_id=0, confidence=0.62, label='person', bbox=[399,488,26,80]
+  [OBJ 1] class_id=0, confidence=0.57, label='person', bbox=[442,490,31,76]
+  [OBJ 2] class_id=2, confidence=0.96, label='car', bbox=[868,468,1048,604]
+  [OBJ 3] class_id=2, confidence=0.86, label='car', bbox=[655,500,129,93]
+  [OBJ 4] class_id=2, confidence=0.50, label='car', bbox=[581,495,52,35]
+[DETECTION SUMMARY] Frame 3300: Total objects detected = 6
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 3450: source_id=0, num_objects=15
+  [OBJ 0] class_id=0, confidence=0.84, label='person', bbox=[77,466,131,308]
+  [OBJ 1] class_id=0, confidence=0.83, label='person', bbox=[461,469,65,160]
+  [OBJ 2] class_id=0, confidence=0.75, label='person', bbox=[338,466,67,187]
+  [OBJ 3] class_id=0, confidence=0.64, label='person', bbox=[431,484,33,96]
+  [OBJ 4] class_id=0, confidence=0.62, label='person', bbox=[405,487,29,93]
+[DETECTION SUMMARY] Frame 3450: Total objects detected = 15
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 3600: source_id=0, num_objects=14
+  [OBJ 0] class_id=0, confidence=0.86, label='person', bbox=[83,471,127,298]
+  [OBJ 1] class_id=0, confidence=0.78, label='person', bbox=[3,603,148,206]
+  [OBJ 2] class_id=0, confidence=0.57, label='person', bbox=[413,483,28,76]
+  [OBJ 3] class_id=0, confidence=0.51, label='person', bbox=[487,483,42,86]
+  [OBJ 4] class_id=2, confidence=0.92, label='car', bbox=[1467,502,387,148]
+[DETECTION SUMMARY] Frame 3600: Total objects detected = 14
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 3750: source_id=0, num_objects=8
+  [OBJ 0] class_id=0, confidence=0.81, label='person', bbox=[61,468,151,303]
+  [OBJ 1] class_id=2, confidence=0.92, label='car', bbox=[1061,481,488,253]
+  [OBJ 2] class_id=2, confidence=0.91, label='car', bbox=[1385,496,287,130]
+  [OBJ 3] class_id=2, confidence=0.81, label='car', bbox=[898,484,112,52]
+  [OBJ 4] class_id=2, confidence=0.77, label='car', bbox=[588,480,58,55]
+[DETECTION SUMMARY] Frame 3750: Total objects detected = 8
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 3900: source_id=0, num_objects=12
+  [OBJ 0] class_id=0, confidence=0.84, label='person', bbox=[301,478,69,177]
+  [OBJ 1] class_id=0, confidence=0.79, label='person', bbox=[418,489,59,158]
+  [OBJ 2] class_id=0, confidence=0.66, label='person', bbox=[385,487,45,157]
+  [OBJ 3] class_id=0, confidence=0.47, label='person', bbox=[361,495,36,152]
+  [OBJ 4] class_id=2, confidence=0.76, label='car', bbox=[1805,505,115,61]
+[DETECTION SUMMARY] Frame 3900: Total objects detected = 12
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 4050: source_id=0, num_objects=11
+  [OBJ 0] class_id=0, confidence=0.75, label='person', bbox=[405,479,30,80]
+  [OBJ 1] class_id=0, confidence=0.62, label='person', bbox=[446,488,31,71]
+  [OBJ 2] class_id=0, confidence=0.46, label='person', bbox=[431,488,23,70]
+  [OBJ 3] class_id=2, confidence=0.93, label='car', bbox=[1112,596,807,474]
+  [OBJ 4] class_id=2, confidence=0.83, label='car', bbox=[1725,504,174,58]
+[DETECTION SUMMARY] Frame 4050: Total objects detected = 11
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 4200: source_id=0, num_objects=13
+  [OBJ 0] class_id=0, confidence=0.82, label='person', bbox=[79,468,130,304]
+  [OBJ 1] class_id=0, confidence=0.79, label='person', bbox=[463,473,59,140]
+  [OBJ 2] class_id=0, confidence=0.76, label='person', bbox=[317,463,167,369]
+  [OBJ 3] class_id=0, confidence=0.73, label='person', bbox=[4,594,149,214]
+  [OBJ 4] class_id=0, confidence=0.46, label='person', bbox=[434,487,33,79]
+[DETECTION SUMMARY] Frame 4200: Total objects detected = 13
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 4350: source_id=0, num_objects=8
+  [OBJ 0] class_id=0, confidence=0.85, label='person', bbox=[76,471,133,299]
+  [OBJ 1] class_id=0, confidence=0.72, label='person', bbox=[4,608,148,200]
+  [OBJ 2] class_id=0, confidence=0.57, label='person', bbox=[414,483,30,70]
+  [OBJ 3] class_id=2, confidence=0.94, label='car', bbox=[1360,490,496,214]
+  [OBJ 4] class_id=2, confidence=0.88, label='car', bbox=[758,468,654,471]
+[DETECTION SUMMARY] Frame 4350: Total objects detected = 8
+**PERF : FPS_0 (15.00)	
+**PERF : FPS_0 (15.00)	
+[DEBUG] Frame 4500: source_id=0, num_objects=9
+  [OBJ 0] class_id=0, confidence=0.87, label='person', bbox=[88,470,127,299]
+  [OBJ 1] class_id=2, confidence=0.91, label='car', bbox=[1131,484,543,282]
+  [OBJ 2] class_id=2, confidence=0.88, label='car', bbox=[641,480,176,134]
+  [OBJ 3] class_id=2, confidence=0.68, label='car', bbox=[775,487,81,46]
+  [OBJ 4] class_id=2, confidence=0.63, label='car', bbox=[580,482,70,53]
+[DETECTION SUMMARY] Frame 4500: Total objects detected = 9
+
+Caught SIGINT. Quitting loop...
+
+Main loop finished. Cleaning up...

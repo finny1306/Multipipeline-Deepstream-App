@@ -7,14 +7,14 @@ infer_config {
     triton {
       model_name: "peoplenet"
       version: -1
-      model_repo {
-        root: "/workspace/model_repository"
-        strict_model_config: true
-      }
-      #grpc {
-      #  url: "127.0.0.1:8001"
-      #  enable_cuda_buffer_sharing: true
+      #model_repo {
+      #  root: "/workspace/model_repository"
+      #  strict_model_config: true
       #}
+      grpc {
+        url: "127.0.0.1:8001"
+        enable_cuda_buffer_sharing: true
+      }
     }
     inputs: [ {
       name: "input_1:0"

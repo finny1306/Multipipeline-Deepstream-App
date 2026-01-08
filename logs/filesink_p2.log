@@ -1,0 +1,183 @@
+Using GPU: NVIDIA L20
+
+=== SINK CONFIGURATION ===
+Sink Type: 1 (1=File, 2=RTSP, 3=Display)
+Output File: /workspace/test-media/p2_output_fixed_v2.mkv
+Framerate: 15/1
+Sync: 1
+==========================
+
+Using Custom Tiler Layout: 1 x 1
+[CONFIG] OSD input format: RGBA
+[CONFIG] Encoder input caps: video/x-raw(memory:NVMM), format=NV12, width=1920, height=1080, framerate=(fraction)15/1
+[CONFIG] Using H264 Encoder
+
+(deepstream-server-app:56656): GLib-GObject-CRITICAL **: 02:53:17.676: g_object_set_is_valid_property: object class 'nvv4l2h264enc' has no property named 'maxperf-enable'
+[CONFIG] Encoder: IDR=30, bitrate=4Mbps
+[CONFIG] Selecting FILE Sink (MKV)
+[CONFIG] File output: /workspace/test-media/p2_output_fixed_v2.mkv (sync=1)
+[DEBUG] OSD sink pad probe added for detection monitoring
+
+=== STARTING PIPELINE ===
+0:00:00.058835588 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058850193 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat YM12
+0:00:00.058854294 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058857290 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat YM12
+0:00:00.058863020 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058880389 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat Y444
+0:00:00.058883090 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058885657 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat Y444
+0:00:00.058892528 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058895667 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat P216
+0:00:00.058898007 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058900539 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat P216
+0:00:00.058905484 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058908209 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat NM16
+0:00:00.058910541 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058921490 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat NM16
+0:00:00.058926341 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058929096 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat P412
+0:00:00.058931656 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058934300 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat P412
+0:00:00.058938882 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058941486 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat P410
+0:00:00.058943719 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058946462 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat P410
+0:00:00.058951169 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058953792 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat PM10
+0:00:00.058956003 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058958581 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat PM10
+0:00:00.058963098 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058966373 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe minimum capture size for pixelformat NM12
+0:00:00.058968750 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:sink>[00m Unable to try format: Unknown error -1
+0:00:00.058971540 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:sink>[00m Could not probe maximum capture size for pixelformat NM12
+0:00:00.059007600 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:src>[00m Unable to try format: Unknown error -1
+0:00:00.059011402 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:src>[00m Could not probe minimum capture size for pixelformat H264
+0:00:00.059013965 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2h264encoder:src>[00m Unable to try format: Unknown error -1
+0:00:00.059016620 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2h264encoder:src>[00m Could not probe maximum capture size for pixelformat H264
+Opening in BLOCKING MODE 
+Civetweb version: v1.16
+0:00:00.138083076 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:365:validatePluginConfig:<primary-inference>[00m warning: Configuration file batch-size reset to: 50
+0:00:00.138127497 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:371:validatePluginConfig:<primary-inference>[00m warning: Configuration file unique-id reset to: 2
+Server running at port: 9002
+INFO: TrtISBackend id:2 initialized model: yolo11s
+Pipeline running. Waiting for detections...
+Pipeline state: NULL -> READY
+WARNING from element primary-inference: Configuration file batch-size reset to: 50
+Warning details: gstnvinferserver_impl.cpp(365): validatePluginConfig (): /GstPipeline:dsserver-pipeline/GstNvInferServer:primary-inference
+WARNING from element primary-inference: Configuration file unique-id reset to: 2
+Warning details: gstnvinferserver_impl.cpp(371): validatePluginConfig (): /GstPipeline:dsserver-pipeline/GstNvInferServer:primary-inference
+Pipeline state: READY -> PAUSED
+Pipeline state: PAUSED -> PLAYING
+
+
+
+
+
+uri:/api/v1/stream/add
+method:POST
+0:00:28.275625096 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275647433 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat MJPG
+0:00:28.275651381 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275655563 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat MJPG
+0:00:28.275666849 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275671476 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat AV10
+0:00:28.275674405 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275677502 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat AV10
+0:00:28.275682826 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275695575 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat DVX5
+0:00:28.275697944 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275700370 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat DVX5
+0:00:28.275706107 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275708599 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat DVX4
+0:00:28.275710820 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275714089 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat DVX4
+0:00:28.275718592 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275721432 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat MPG4
+0:00:28.275723697 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275726241 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat MPG4
+0:00:28.275730592 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275733606 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat MPG2
+0:00:28.275735902 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275738352 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat MPG2
+0:00:28.275743002 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275747692 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat H265
+0:00:28.275750087 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275754906 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat H265
+0:00:28.275759377 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275762154 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat VP90
+0:00:28.275764459 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275766972 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat VP90
+0:00:28.275770835 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275773348 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat VP80
+0:00:28.275775565 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275778446 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat VP80
+0:00:28.275783005 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275785537 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe minimum capture size for pixelformat H264
+0:00:28.275787928 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:sink>[00m Unable to try format: Unknown error -1
+0:00:28.275792061 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:sink>[00m Could not probe maximum capture size for pixelformat H264
+0:00:28.275809987 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275814149 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe minimum capture size for pixelformat Y444
+0:00:28.275816461 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275819045 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe maximum capture size for pixelformat Y444
+0:00:28.275825461 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275830387 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe minimum capture size for pixelformat P216
+0:00:28.275832786 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275835218 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe maximum capture size for pixelformat P216
+0:00:28.275840553 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275843247 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe minimum capture size for pixelformat NM16
+0:00:28.275845708 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275848265 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe maximum capture size for pixelformat NM16
+0:00:28.275853358 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275856124 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe minimum capture size for pixelformat P412
+0:00:28.275858473 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275861041 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe maximum capture size for pixelformat P412
+0:00:28.275876609 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275880063 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe minimum capture size for pixelformat P410
+0:00:28.275882716 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275885154 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe maximum capture size for pixelformat P410
+0:00:28.275890166 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275892787 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe minimum capture size for pixelformat PM10
+0:00:28.275895100 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275900162 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe maximum capture size for pixelformat PM10
+0:00:28.275905680 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275909847 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3007:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe minimum capture size for pixelformat NM12
+0:00:28.275912231 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3122:gst_v4l2_object_get_nearest_size:<nvv4l2decoder0:src>[00m Unable to try format: Unknown error -1
+0:00:28.275915020 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m                v4l2 gstv4l2object.c:3013:gst_v4l2_object_probe_caps_for_format:<nvv4l2decoder0:src>[00m Could not probe maximum capture size for pixelformat NM12
+0:00:28.382442811 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m        v4l2videodec gstv4l2videodec.c:2345:gst_v4l2_video_dec_decide_allocation:<nvv4l2decoder0>[00m Duration invalid, not setting latency
+0:00:28.392011374 [35m56656[00m 0x7ee280013f70 [33;01mWARN   [00m [00m      v4l2bufferpool gstv4l2bufferpool.c:1127:gst_v4l2_buffer_pool_start:<nvv4l2decoder0:pool:src>[00m Uncertain or not enough buffers, enabling copy threshold
+0:00:28.392728108 [35m56656[00m 0x7ee2800153d0 [33;01mWARN   [00m [00m      v4l2bufferpool gstv4l2bufferpool.c:1611:gst_v4l2_buffer_pool_dqbuf:<nvv4l2decoder0:pool:src>[00m Driver should never set v4l2_buffer.field to ANY
+0:00:28.425683349 [35m56656[00m 0x7ee2800013a0 [33;01mWARN   [00m [00m      v4l2bufferpool gstv4l2bufferpool.c:1127:gst_v4l2_buffer_pool_start:<nvv4l2h264encoder:pool:src>[00m Uncertain or not enough buffers, enabling copy threshold
+0:00:28.527705957 [35m56656[00m 0x7ee280015430 [33;01mWARN   [00m [00m      v4l2bufferpool gstv4l2bufferpool.c:1611:gst_v4l2_buffer_pool_dqbuf:<nvv4l2h264encoder:pool:src>[00m Driver should never set v4l2_buffer.field to ANY
+0:00:28.528177371 [35m56656[00m 0x7ee280000d80 [32;01mFIXME  [00m [00m            basesink gstbasesink.c:3399:gst_base_sink_default_event:<filesink>[00m stream-start event without group-id. Consider implementing group-id handling in the upstream elements
+Opening in BLOCKING MODE 
+
+**PERF : FPS_0 (53.35)	
+[DEBUG] Frame 150: source_id=0, num_objects=11
+  [OBJ 0] class_id=0, confidence=0.90, label='person', bbox=[43,477,205,470]
+  [OBJ 1] class_id=0, confidence=0.73, label='person', bbox=[0,510,124,436]
+  [OBJ 2] class_id=0, confidence=0.41, label='person', bbox=[446,478,21,48]
+  [OBJ 3] class_id=2, confidence=0.93, label='car', bbox=[741,488,400,286]
+  [OBJ 4] class_id=2, confidence=0.85, label='car', bbox=[987,482,148,77]
+[DETECTION SUMMARY] Frame 150: Total objects detected = 11
+**PERF : FPS_0 (53.35)	
+nvstreammux: Successfully handled EOS for source_id=0
+0:00:42.017675699 [35m56656[00m 0x7ee28000aa00 [33;01mWARN   [00m [00m         nvstreammux gstnvstreammux.cpp:3458:gst_nvstreammux_src_push_loop:<src_bin_muxer>[00m warning: No Sources found at the input of muxer. Waiting for sources.
+WARNING from element src_bin_muxer: No Sources found at the input of muxer. Waiting for sources.
+Warning details: gstnvstreammux.cpp(3458): gst_nvstreammux_src_push_loop (): /GstPipeline:dsserver-pipeline/GstDsNvMultiUriBin:multiuribin/GstBin:multiuribin_creator/GstNvStreamMux:src_bin_muxer
+0:00:42.018315734 [35m56656[00m 0x7ee280015430 [33;01mWARN   [00m [00m       v4l2allocator gstv4l2allocator.c:1519:gst_v4l2_allocator_dqbuf:<nvv4l2h264encoder:pool:src:allocator>[00m V4L2 provided buffer has bytesused 0 which is too small to include data_offset 0
+End of stream
+
+Main loop finished. Cleaning up...
+Sending EOS to finalize file...
+0:00:43.018082504 [35m56656[00m 0x7ee28000aa00 [33;01mWARN   [00m [00m         nvstreammux gstnvstreammux.cpp:3458:gst_nvstreammux_src_push_loop:<src_bin_muxer>[00m warning: No Sources found at the input of muxer. Waiting for sources.
+0:00:44.018477843 [35m56656[00m 0x7ee28000aa00 [33;01mWARN   [00m [00m         nvstreammux gstnvstreammux.cpp:3458:gst_nvstreammux_src_push_loop:<src_bin_muxer>[00m warning: No Sources found at the input of muxer. Waiting for sources.
+0:00:45.018893598 [35m56656[00m 0x7ee28000aa00 [33;01mWARN   [00m [00m         nvstreammux gstnvstreammux.cpp:3458:gst_nvstreammux_src_push_loop:<src_bin_muxer>[00m warning: No Sources found at the input of muxer. Waiting for sources.
+0:00:46.019301183 [35m56656[00m 0x7ee28000aa00 [33;01mWARN   [00m [00m         nvstreammux gstnvstreammux.cpp:3458:gst_nvstreammux_src_push_loop:<src_bin_muxer>[00m warning: No Sources found at the input of muxer. Waiting for sources.
+0:00:47.019686550 [35m56656[00m 0x7ee28000aa00 [33;01mWARN   [00m [00m         nvstreammux gstnvstreammux.cpp:3458:gst_nvstreammux_src_push_loop:<src_bin_muxer>[00m warning: No Sources found at the input of muxer. Waiting for sources.
+0:00:48.020089796 [35m56656[00m 0x7ee28000aa00 [33;01mWARN   [00m [00m         nvstreammux gstnvstreammux.cpp:3458:gst_nvstreammux_src_push_loop:<src_bin_muxer>[00m warning: No Sources found at the input of muxer. Waiting for sources.
+0:00:48.299985258 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00;01m                 bin gstbin.c:1825:gst_bin_remove_func:<multiuribin_creator>[00m Element 'dsnvurisrcbin0' is not in bin
+0:00:48.300018111 [35m56656[00m 0x5b9116011020 [33;01mWARN   [00m [00;04m             default gst-nvmultiurisrcbincreator.cpp:1303:s_nvmultiurisrcbincreator_remove_source_impl:<multiuribin_creator>[00m Failed to set remove source-id:0
+Stopping the server..!! 
+Stopped the server..!! 
+Cleanup complete.

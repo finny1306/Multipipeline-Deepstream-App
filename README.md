@@ -25,7 +25,7 @@ python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipip
 python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_20fps.mp4 -n 64 --mode 'srt-h264'
 
 #with 15 fps
-python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_15fps.mp4 -n 50 --mode 'rtsp-h264'
+python3 /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_15fps.mp4 -n 1 --mode 'rtsp-h264'
 
 #with 10 fps
 python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_10fps.mp4 -n 130 --mode 'rtsp-h264'
@@ -80,7 +80,7 @@ python3 rest_api_client.py list
 python3 rest_api_client.py add \
   --id cam001 \
   --name "Front Door" \
-  --url file:///workspace/test-media/sample_1080p_h264_20fps.mp4
+  --url file:///workspace/test-media/sample_1080p_h264_15fps.mp4
 
 # RTSP stream:
 python3 rest_api_client.py add \
@@ -193,5 +193,5 @@ python3 rest_api_client.py interval --stream 0 --value 2
 
 **Adjust encoder bitrate:**
 ```bash
-curl -X POST http://localhost:9000/api/v1/enc/bitrate \
-  -d '{"stream":{"stream_id":"0","bitrate":3000000}}'
+curl -X POST http://localhost:9002/api/v1/enc/bitrate \
+  -d '{"stream":{"stream_id":"0","bitrate":2000000}}'

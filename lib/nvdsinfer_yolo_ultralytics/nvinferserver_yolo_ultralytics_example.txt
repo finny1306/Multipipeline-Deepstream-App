@@ -1,0 +1,102 @@
+################################################################################
+# SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES.
+# SPDX-License-Identifier: MIT
+#
+# nvinferserver Configuration for Ultralytics YOLO11/v8/v5 Models with Triton
+# 
+# This config works with TensorRT engines in Triton model repository.
+# 
+# Model repository structure:
+#   /workspace/model_repository/
+#   └── yolo11s/
+#       ├── 1/
+#       │   └── model.plan  (TensorRT engine)
+#       └── config.pbtxt
+################################################################################
+
+infer_config {
+  unique_id: 1
+  gpu_ids: [0]
+  max_batch_size: 50
+
+  backend {
+    triton {
+      model_name: "yolo11s"
+      version: -1  # Use latest version
+      model_repo {
+        root: "/workspace/model_repository"
+        strict_model_config: true
+      }
+      
+      # Uncomment for gRPC remote Triton server
+      # grpc {
+      #   url: "localhost:8001"
+      #   enable_cuda_buffer_sharing: true
+      # }
+    }
+    
+    # Input tensor configuration
+    inputs: [{
+      name: "images"
+    }]
+    
+    # Output tensor configuration
+    outputs: [{
+      name: "output0"
+    }]
+  }
+
+  # Preprocessing - must match Ultralytics training
+  preprocess {
+    network_format: IMAGE_FORMAT_RGB
+    tensor_order: TENSOR_ORDER_LINEAR
+    tensor_name: "images"
+    maintain_aspect_ratio: 1
+    symmetric_padding: 1
+    frame_scaling_hw: FRAME_SCALING_HW_GPU
+    frame_scaling_filter: 1
+    normalize {
+      scale_factor: 0.0039215697906911373  # 1/255
+      channel_offsets: [0, 0, 0]
+    }
+  }
+
+  # Postprocessing with custom parser
+  postprocess {
+    labelfile_path: "/workspace/configs/labels/coco_labels.txt"
+    detection {
+      num_detected_classes: 80
+      
+      # Custom parser function
+      # Options:
+      #   NvDsInferParseYoloUltralytics - Auto-detect (recommended)
+      #   NvDsInferParseYoloV8          - YOLOv8/v11 format
+      #   NvDsInferParseYolo11          - Alias for YOLOv8
+      #   NvDsInferParseYoloV5          - YOLOv5 format
+      custom_parse_bbox_func: "NvDsInferParseYoloUltralytics"
+      
+      # NMS configuration - applied by parser
+      nms {
+        confidence_threshold: 0.25
+        iou_threshold: 0.45
+        topk: 300
+      }
+    }
+  }
+
+  # Custom library path
+  custom_lib {
+    path: "/workspace/lib/nvdsinfer_yolo_ultralytics/libnvdsinfer_yolo_ultralytics.so"
+  }
+
+  # Extra settings for performance
+  extra {
+    copy_input_to_host_buffers: false
+    output_buffer_pool_size: 4
+  }
+}
+
+input_control {
+  process_mode: PROCESS_MODE_FULL_FRAME
+  interval: 0  # Process every frame
+}
