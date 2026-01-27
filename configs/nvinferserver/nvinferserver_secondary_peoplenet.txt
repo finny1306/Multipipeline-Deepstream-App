@@ -25,15 +25,19 @@ infer_config {
     triton {
       model_name: "peoplenet"
       version: -1
-      model_repo {
-        root: "/workspace/model_repository"
-        strict_model_config: true
+      #model_repo {
+      #  root: "/workspace/model_repository"
+      #  strict_model_config: true
+      #}
+      grpc {
+        url: "127.0.0.1:8001"
+        enable_cuda_buffer_sharing: true
       }
     }
   }
 
   preprocess {
-    network_format: IMAGE_FORMAT_BGR
+    network_format: IMAGE_FORMAT_RGB
     tensor_order: TENSOR_ORDER_LINEAR
     maintain_aspect_ratio: 0
     frame_scaling_hw: FRAME_SCALING_HW_DEFAULT
@@ -48,10 +52,6 @@ infer_config {
     labelfile_path: "/workspace/configs/labels/peoplenet_labels.txt"
     detection {
       num_detected_classes: 3
-      per_class_params {
-        key: 0
-        value { pre_threshold: 0.4 }
-      }
       nms {
         confidence_threshold:0.2
         topk:20

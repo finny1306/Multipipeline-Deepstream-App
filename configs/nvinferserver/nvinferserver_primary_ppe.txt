@@ -11,14 +11,14 @@ infer_config {
       # version3: opt32, max 128
       # version4: opt64, max 128 
       version: -1
-      model_repo {
-        root: "/workspace/model_repository"
-        strict_model_config: true
-      }
-      #grpc {
-      #  url: "127.0.0.1:8001"
-      #  enable_cuda_buffer_sharing: true
+      #model_repo {
+      #  root: "/workspace/model_repository"
+      #  strict_model_config: true
       #}
+      grpc {
+        url: "127.0.0.1:8001"
+        enable_cuda_buffer_sharing: true
+      }
     }
     inputs: [{
       name: "images"      # Ultralytics exported TensorRT plan uses "images"
@@ -46,13 +46,7 @@ infer_config {
     labelfile_path: "/workspace/configs/labels/ppe_labels.txt"
     detection {
       num_detected_classes: 7
-      custom_parse_bbox_func: "NvDsInferParseYoloCuda"
-      per_class_params {
-        key: 0
-        value {
-          pre_threshold: 0.35
-        }
-      }
+      custom_parse_bbox_func: "NvDsInferParseYoloUltralytics"
       nms {
         confidence_threshold:0.5
         iou_threshold: 0.45
@@ -61,7 +55,7 @@ infer_config {
     }
   }
   custom_lib {
-    path: "/workspace/lib/DeepStream-Yolo/nvdsinfer_custom_impl_Yolo/libnvdsinfer_custom_impl_Yolo.so"
+    path: "/workspace/lib/nvdsinfer_yolo_ultralytics/libnvdsinfer_yolo_ultralytics.so"
   }
 
   extra {

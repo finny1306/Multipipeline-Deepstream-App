@@ -1,0 +1,78 @@
+################################################################################
+# SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES.
+# SPDX-License-Identifier: MIT
+#
+# nvinfer Configuration for Ultralytics YOLO11/v8/v5 Models
+# 
+# This config works with models exported via:
+#   from ultralytics import YOLO
+#   model = YOLO("yolo11s.pt")
+#   model.export(format="onnx")  # or format="engine"
+#
+# Output tensor format:
+#   - YOLOv8/v11: [batch, 84, 8400] for 80 classes
+#   - YOLOv5: [batch, 25200, 85] for 80 classes
+################################################################################
+
+[property]
+gpu-id=0
+
+# Model files - update paths as needed
+# Option 1: Use ONNX (TensorRT engine will be generated on first run)
+onnx-file=/workspace/models/yolo11s.onnx
+
+# Option 2: Use pre-built TensorRT engine
+# model-engine-file=/workspace/models/yolo11s.engine
+
+# Label file
+labelfile-path=/workspace/configs/labels/coco_labels.txt
+
+# Network configuration
+num-detected-classes=80
+network-mode=2  # 0=FP32, 1=INT8, 2=FP16
+
+# Input configuration
+infer-dims=3;640;640
+maintain-aspect-ratio=1
+symmetric-padding=1
+
+# Preprocessing - Ultralytics uses RGB with 0-1 normalization
+model-color-format=0  # 0=RGB
+net-scale-factor=0.0039215697906911373  # 1/255
+
+# Custom parser library - update path
+custom-lib-path=/workspace/lib/nvdsinfer_yolo_ultralytics/libnvdsinfer_yolo_ultralytics.so
+
+# Parser function - choose based on your model:
+# - NvDsInferParseYoloUltralytics : Auto-detect format (recommended)
+# - NvDsInferParseYoloV8         : Force YOLOv8/v11 format
+# - NvDsInferParseYolo11         : Alias for YOLOv8
+# - NvDsInferParseYoloV5         : Force YOLOv5 format
+parse-bbox-func-name=NvDsInferParseYoloUltralytics
+
+# Processing mode
+network-type=0  # 0=Detector
+process-mode=1  # 1=Primary
+cluster-mode=2  # 2=NMS (required for custom parser)
+
+# Batching
+batch-size=1
+
+# Interval - process every Nth frame (0 = every frame)
+interval=0
+
+# Unique ID for this GIE
+gie-unique-id=1
+
+# Output layer names - for Ultralytics export
+# Usually just "output0" for detection models
+output-blob-names=output0
+
+# Workspace size for TensorRT engine building
+workspace-size=2048  # MB
+
+[class-attrs-all]
+# These thresholds are passed to the custom parser
+pre-cluster-threshold=0.25
+nms-iou-threshold=0.45
+topk=300

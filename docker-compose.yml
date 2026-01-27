@@ -1,10 +1,7 @@
 services:
   mediamtx:
     image: bluenviron/mediamtx:latest
-    ports:
-      - "8554:8554"  # RTSP
-      - "8889:8889" # WebRTC
-      - "8890:8890/udp" # SRT (Standard port)
+    network_mode: host  # ← SOLUTION: Use host network for better external connectivity
     restart: unless-stopped
     deploy:
       resources:
@@ -16,13 +13,7 @@ services:
     image: nvcr.io/nvidia/deepstream:8.0-triton-multiarch
     command: tail -f /dev/null
     privileged: true
-    ports:
-      - "8555:8554"  # RTSP output port
-      - "9000:9000"  # REST API port 
-      - "9000-9020:9000-9020"   # ranged for 20 pipelines
-      - "8000:8000"  # Triton HTTP
-      - "8001:8001"  # Triton gRPC
-      - "8002:8002"  # Triton Metrics
+    network_mode: host  # ← KEY FIX: Container shares host network stack
     volumes:
       - ./:/workspace
     environment:
@@ -55,8 +46,14 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
-    network_mode: host
+    network_mode: host  # ← Host network for consistency
     restart: unless-stopped
     depends_on:
       deepstream:
         condition: service_started
+
+# NOTE: With network_mode: host
+# - Port mappings are not needed (services use host ports directly)
+# - All services must use unique ports
+# - Better external connectivity for RTSP streams
+# - Services can access external IPs same as host machine
