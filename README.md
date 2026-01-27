@@ -1,8 +1,27 @@
 # DeepStream REST API - Quick Start Guide
 
 ## Overview
-Your DeepStream setup now supports dynamic stream add/remove via REST API while maintaining Triton inference.
+This DeepStream setup now supports: 
+ - Dynamic stream add/remove via REST API
+ - Dynamic pipeline creation/deletion that is independent from one another
+ - This app was tested with CUDA_VER=12.8 in L20 GPU
 
+## Key Features
+🔄 Dynamic Multi-Pipeline
+ - Independent Instances: Each pipeline runs in its own process
+ - Isolated REST APIs: Each on unique port (9000, 9001, ...)
+ - No Interference: Failure in one pipeline doesn't affect others
+
+📡 Dynamic Stream Management
+ - Runtime Add/Remove: Streams can be added/removed without restart
+ - High Capacity: ~120 concurrent, 15 FPS streams total across all pipelines
+ - Multiple Protocols: RTSP, SRT, File sources
+
+⚡ Performance Optimizations
+ - Queue-Based Decoupling: 10-buffer queues prevent blocking
+ - Batch Processing: All streams processed in single GPU batch
+ - GPU-Accelerated: CUDA-optimized converters and inference
+   
 ## Quick Start
 
 ### 1. Initial Setup
@@ -15,6 +34,30 @@ docker compose down && docker compose up -d
 ```bash
 python3 -m venv testenv
 ```
+**Install additional libs and compile the app**
+```bash
+docker compose exec deepstream bash
+./install.sh
+./user_additional_install.sh
+./update_rtpmanager.sh
+```
+**Compile the App**
+```bash
+# Run the new script
+/workspace/scripts/dynamic_deepstream_server_with_sgie.sh
+
+# ensure the message "Compilation finished" is seen. If not, do:
+cd /opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-server
+export CUDA_VER=12.8
+make clean && make
+```
+
+**Get the YOLO Custom Parser**
+```bash
+# Can get it by following the steps in https://github.com/NVIDIA-AI-IOT/deepstream_tools.git
+```
+
+### 2. Starting 
 **Terminal 1: Run Stream**
 ```bash
 source multipipeline-deepstream/testenv/bin/activate
@@ -35,8 +78,9 @@ python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipip
 ```bash
 cd /root/multipipeline-deepstream
 docker compose exec deepstream bash
+```
 
-# Run the python manager
+**Run the python manager**
 ```bash
 # use the venv 
 source workspace/testenv/bin/activate
@@ -44,7 +88,7 @@ cd /workspace
 python manager.py
 ```
 
-### 2. Add New Pipelines
+### 3. Add New Pipelines
 **To Add A New one**
 ```bash
 # In a new terminal, inside the docker container, run
@@ -60,11 +104,11 @@ curl -X POST http://localhost:5000/pipelines/spawn \
 curl -X DELETE "http://localhost:5000/pipelines/pipeline_id"
 ```
 
-**To Kill All**
+**To Kill All** \
 Simply ctrl + C in the python manager terminal.
 
 
-### 3. Test REST API
+### 4. Test REST API
 **Option A: Use Python Client**
 ```bash
 # Call the pipeline via port first
@@ -178,9 +222,9 @@ docker compose logs -f deepstream
 ## Important Notes
 
 1. Each `camera_id` must be unique
-2. Maximum 16 concurrent streams (configurable in config)
-3. REST API requires `type=5` (nvmultiurisrcbin) in source configuration
-4. Triton server must be running before DeepStream starts
+2. Maximum 120 concurrent streams for best results for 1 pipeline (configurable in config)
+3. Make sure all ports in config and when spawning a pipeline has the same value
+4. Max-batch size == number of max streams that can be added
 5. Changes take effect immediately without restart
 
 ## Performance Tuning
@@ -193,5 +237,6 @@ python3 rest_api_client.py interval --stream 0 --value 2
 
 **Adjust encoder bitrate:**
 ```bash
-curl -X POST http://localhost:9002/api/v1/enc/bitrate \
-  -d '{"stream":{"stream_id":"0","bitrate":2000000}}'
+curl -X POST http://localhost:9000/api/v1/enc/bitrate \
+  -d '{"stream":{"stream_id":"0","bitrate":3000000}}'
+
