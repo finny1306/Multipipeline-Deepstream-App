@@ -1,7 +1,7 @@
 services:
   mediamtx:
     image: bluenviron/mediamtx:latest
-    network_mode: host  # ← SOLUTION: Use host network for better external connectivity
+    network_mode: host 
     restart: unless-stopped
     deploy:
       resources:
@@ -13,7 +13,7 @@ services:
     image: nvcr.io/nvidia/deepstream:8.0-triton-multiarch
     command: tail -f /dev/null
     privileged: true
-    network_mode: host  # ← KEY FIX: Container shares host network stack
+    network_mode: host  
     volumes:
       - ./:/workspace
     environment:
