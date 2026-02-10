@@ -1,7 +1,0 @@
-helmet
-cap 
-vest
-missing_vest
-coverall
-ppe_uniform
-missing_headgear
