@@ -1,0 +1,56 @@
+infer_config {
+  unique_id: 1
+  gpu_ids: [0]
+  max_batch_size: 32
+
+  backend {
+    triton {
+      model_name: "usb"
+      version: -1
+      model_repo {
+        root: "/workspace/model_repository"
+        strict_model_config: true
+      }
+      #grpc {
+      #  url: "127.0.0.1:8001"
+      #  enable_cuda_buffer_sharing: true
+      #}
+    }
+  }
+
+  preprocess {
+    network_format: IMAGE_FORMAT_RGB  
+    tensor_order: TENSOR_ORDER_LINEAR
+    tensor_name: "input"
+    maintain_aspect_ratio: 1
+    symmetric_padding: 1
+    frame_scaling_hw: FRAME_SCALING_HW_GPU
+    frame_scaling_filter: 1
+    normalize {
+      scale_factor: 0.0039215697906911373   # = 1/255.0
+      channel_offsets: [0, 0, 0]
+    }
+  }
+
+  postprocess {
+    labelfile_path: "/workspace/configs/labels/sdp_labels.txt"
+    classification {
+      threshold: 0.5
+      }
+    }
+  
+  custom_lib {
+    path: "/workspace/lib/deepstream_tools/yolo_deepstream/deepstream_yolo/nvdsinfer_custom_impl_Yolo/libnvdsinfer_custom_impl_Yolo.so"
+  }
+
+  extra {
+    copy_input_to_host_buffers: false
+    output_buffer_pool_size: 4
+  }
+}
+
+input_control {
+  async_mode: false
+  process_mode: PROCESS_MODE_FULL_FRAME
+  interval: 0 # process every n frames
+}

@@ -1,0 +1,94 @@
+# config_p2.yml
+# FIXED v2: Removed invalid OSD properties, correct settings for file output
+
+rest-server:
+  within_multiurisrcbin: 1
+
+server-app-ctx:
+  httpIp: "0.0.0.0"
+  httpPort: "9002"
+  pipeline_width: 1920
+  pipeline_height: 1080
+  maxBatchSize: 50
+  batched_push_timeout: 50000
+  live_source: 1          # 0 for file sources to preserve timestamps
+  drop_pipeline_eos: 1    # 0 to properly handle EOS for file output
+  mux-config-file: "/workspace/configs/nvinferserver/custom_nvstreammux_config.txt"
+
+multiurisrcbin:
+  port: 9002
+  live-source: 1
+  width: 1920
+  height: 1080
+  batched-push-timeout: 50000
+  max-batch-size: 50
+  disable-passthrough: 0
+  drop-pipeline-eos: 1
+
+
+# --- Inference Setup ---
+
+primary-gie:
+  unique-id: 2
+  enable: 1
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/nvinferserver_primary_yolo11s.txt
+  batch-size: 50
+
+tracker:
+  enable: 0
+  tracker-width: 960
+  tracker-height: 544
+  ll-lib-file: /opt/nvidia/deepstream/deepstream/lib/libnvds_nvmultiobjecttracker.so
+  ll-config-file: /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_tracker_NvDCF_perf.yml
+  gpu-id: 0
+  display-tracking-id: 1
+
+secondary-gie1:
+  enable: 0
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/nvinferserver_secondary_peoplenet.txt
+  operate-on-gie-id: 2 
+  operate-on-class-ids: 0 
+  batch-size: 50
+
+
+# --- Processing & Output ---
+
+preprocess:
+  enable: 0
+  config-file: config_preprocess.txt
+
+analytics:
+  enable: 0
+  config-file: /workspace/configs/nvinferserver/config_nvdsanalytics.txt
+
+tiler:
+  enable: 1
+  width: 1920
+  height: 1080
+  rows: 2
+  columns: 2
+
+# FIXED: Only use valid OSD properties (see gst-inspect-1.0 nvdsosd)
+osd:
+  enable: 1
+  process-mode: 1         # 1 = GPU mode # CPU mode is 0
+  display-text: 1         # Show labels
+  display-bbox: 1         # Show bounding boxes
+  display-mask: 0         # No instance masks
+  gpu-id: 0
+
+encoder:
+  enable: 1
+  codec: 1                # 1=H264, 2=H265
+
+sink:
+  enable: 1 
+  type: 2                 # 1=File(MKV), 2=RTSP, 3=Display
+  output-file: "/workspace/test-media/p2_output_fixed_v2.mkv"
+  sync: 1                 # Must be 1 for proper timing
+  framerate: "15/1"
+  qos: 0
+  rtsp-port: 8554
+  udp-port: 5400

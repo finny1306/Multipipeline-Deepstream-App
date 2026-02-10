@@ -1,0 +1,34 @@
+# custom_streammux_config.txt
+[property]
+gpu-id=0
+batch-size=100
+batched-push-timeout=40000   # 1000000/max fps
+width=1920
+height=1080
+enable-padding=1
+nvbuf-memory-type=3
+
+# Buffer management
+num-surfaces-per-frame=1
+buffer-pool-size=4     
+attach-sys-ts=1
+sync-inputs=0
+
+max-latency=18446744073709551614
+
+max-same-source-frames=1         # Only n frame per source per batch (for fairness)
+max-num-frames-per-batch=100     # Allow up to n frames total per batch
+
+# Batching algorithm
+algorithm-type=0
+adaptive-batching=1
+
+# FPS control - DISABLE to let streams run naturally
+max-fps-control=0
+
+# Latency
+#latency=18446744073709551614
+
+frame-num-reset-on-eos=0
+frame-num-reset-on-stream-reset=0
+
