@@ -44,12 +44,7 @@ docker compose exec deepstream bash
 **Compile the App**
 ```bash
 # Run the new script
-/workspace/scripts/dynamic_deepstream_server_with_sgie.sh
-
-# ensure the message "Compilation finished" is seen. If not, do:
-cd /opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-server
-export CUDA_VER=12.8
-make clean && make
+/workspace/scripts/deepstream_v7.sh
 ```
 
 **Get the YOLO Custom Parser**
@@ -83,9 +78,8 @@ docker compose exec deepstream bash
 **Run the python manager**
 ```bash
 # use the venv 
-source workspace/testenv/bin/activate
-cd /workspace
-python manager.py
+source /workspace/testenv/bin/activate
+python /workspace/manager_v2.py
 ```
 
 ### 3. Add New Pipelines
@@ -111,32 +105,34 @@ Simply ctrl + C in the python manager terminal.
 ### 4. Test REST API
 **Option A: Use Python Client**
 ```bash
-# Call the pipeline via port first
-python3 rest_api_client.py --url http://localhost:<port>
+# Pipeline on port 9000, and localhost (change according to pipeline port)
 
 # Check health
-python3 rest_api_client.py health
+python rest_client.py --port 9000 health
 
 # List streams
-python3 rest_api_client.py list
+python rest_client.py --port 9000 list
+
+# Remote host
+python rest_client.py --host 192.168.1.50 --port 9001 list
 
 # file stream:
-python3 rest_api_client.py add \
+python3 rest_api_client.py --port 9000 add \
   --id cam001 \
   --name "Front Door" \
   --url file:///workspace/test-media/sample_1080p_h264_15fps.mp4
 
 # RTSP stream:
-python3 rest_api_client.py add \
+python3 rest_api_client.py --port 9000 add \
   --id cam0001 \
   --name "Front Door" \
   --url rtsp://mediamtx:8554/stream1
 
 # Remove stream
-python3 rest_api_client.py remove --id cam001 --url rtsp://mediamtx:8554/stream1
+python3 rest_api_client.py --port 9000 remove --id cam001 --url rtsp://mediamtx:8554/stream1
 
 # Set inference interval (process every 2nd frame)
-python3 rest_api_client.py interval --stream 0 --value 2
+python3 rest_api_client.py --port 9000 interval --stream 0 --value 2
 ```
 
 **Option B: Use curl**
