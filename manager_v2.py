@@ -81,6 +81,7 @@ def get_pipeline_env():
     env["GIO_MODULE_DIR"] = "/nonexistent"
     env["NVDS_ENABLE_COMPONENT_LATENCY_MEASUREMENT"] = "1"
     env["NVDS_ENABLE_DEBUG"] = "1"
+    #env["USE_NEW_NVSTREAMMUX"] = "yes"
     #env["GST_DEBUG"] = "3" # comment if needed
     
     ds_plugin_path = "/opt/nvidia/deepstream/deepstream-8.0/lib/gst-plugins"
