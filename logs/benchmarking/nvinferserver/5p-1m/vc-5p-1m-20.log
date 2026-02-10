@@ -1,0 +1,159 @@
+
+=== STARTING ROBUST PIPELINE ===
+Civetweb version: v1.16
+0:00:00.188893329 [31m12252[00m 0x5f7878d1b900 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:365:validatePluginConfig:<primary-inference>[00m warning: Configuration file batch-size reset to: 24
+Server running at port: 9000
+INFO: TrtISBackend id:1 initialized model: vc
+
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Opening in BLOCKING MODE 
+Protocol set: 0x7
+
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (23.00)	FPS_1 (22.80)	FPS_2 (23.00)	FPS_3 (22.80)	FPS_4 (23.40)	FPS_5 (23.20)	FPS_6 (22.40)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (22.90)	FPS_1 (22.90)	FPS_2 (23.30)	FPS_3 (23.00)	FPS_4 (23.40)	FPS_5 (22.70)	FPS_6 (22.60)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (22.66)	FPS_1 (22.80)	FPS_2 (23.13)	FPS_3 (22.46)	FPS_4 (23.06)	FPS_5 (22.13)	FPS_6 (22.33)	FPS_7 (22.20)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (22.50)	FPS_1 (23.00)	FPS_2 (23.05)	FPS_3 (22.55)	FPS_4 (23.00)	FPS_5 (22.45)	FPS_6 (22.65)	FPS_7 (22.70)	FPS_8 (22.60)	FPS_9 (22.60)	FPS_10 (22.60)	FPS_11 (23.20)	FPS_12 (23.00)	FPS_13 (22.40)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (22.56)	FPS_1 (23.04)	FPS_2 (23.04)	FPS_3 (22.64)	FPS_4 (23.00)	FPS_5 (22.28)	FPS_6 (22.56)	FPS_7 (22.80)	FPS_8 (22.60)	FPS_9 (22.80)	FPS_10 (22.80)	FPS_11 (23.20)	FPS_12 (23.00)	FPS_13 (22.50)	
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (22.73)	FPS_1 (23.06)	FPS_2 (22.93)	FPS_3 (22.56)	FPS_4 (22.93)	FPS_5 (22.30)	FPS_6 (22.50)	FPS_7 (22.65)	FPS_8 (22.40)	FPS_9 (22.40)	FPS_10 (22.66)	FPS_11 (22.60)	FPS_12 (22.33)	FPS_13 (22.46)	FPS_14 (22.00)	FPS_15 (22.00)	
+**PERF : FPS_0 (22.77)	FPS_1 (23.08)	FPS_2 (22.97)	FPS_3 (22.71)	FPS_4 (22.88)	FPS_5 (22.45)	FPS_6 (22.57)	FPS_7 (22.72)	FPS_8 (22.75)	FPS_9 (22.50)	FPS_10 (22.75)	FPS_11 (22.75)	FPS_12 (22.30)	FPS_13 (22.60)	FPS_14 (22.70)	FPS_15 (22.40)	FPS_16 (23.20)	FPS_17 (23.00)	FPS_18 (21.60)	FPS_19 (22.00)	
+**PERF : FPS_0 (22.80)	FPS_1 (23.00)	FPS_2 (22.87)	FPS_3 (22.72)	FPS_4 (22.80)	FPS_5 (22.47)	FPS_6 (22.50)	FPS_7 (22.70)	FPS_8 (22.72)	FPS_9 (22.32)	FPS_10 (22.88)	FPS_11 (22.60)	FPS_12 (22.52)	FPS_13 (22.72)	FPS_14 (22.80)	FPS_15 (22.73)	FPS_16 (22.90)	FPS_17 (22.60)	FPS_18 (21.80)	FPS_19 (22.00)	
+**PERF : FPS_0 (22.77)	FPS_1 (23.02)	FPS_2 (22.93)	FPS_3 (22.82)	FPS_4 (22.86)	FPS_5 (22.53)	FPS_6 (22.51)	FPS_7 (22.63)	FPS_8 (22.70)	FPS_9 (22.26)	FPS_10 (22.73)	FPS_11 (22.63)	FPS_12 (22.53)	FPS_13 (22.73)	FPS_14 (22.65)	FPS_15 (22.80)	FPS_16 (22.73)	FPS_17 (22.66)	FPS_18 (21.80)	FPS_19 (22.06)	
+**PERF : FPS_0 (22.82)	FPS_1 (22.96)	FPS_2 (22.90)	FPS_3 (22.76)	FPS_4 (22.88)	FPS_5 (22.52)	FPS_6 (22.52)	FPS_7 (22.77)	FPS_8 (22.74)	FPS_9 (22.40)	FPS_10 (22.83)	FPS_11 (22.80)	FPS_12 (22.71)	FPS_13 (22.83)	FPS_14 (22.64)	FPS_15 (22.92)	FPS_16 (22.75)	FPS_17 (22.45)	FPS_18 (22.15)	FPS_19 (22.20)	
+**PERF : FPS_0 (22.76)	FPS_1 (22.91)	FPS_2 (22.87)	FPS_3 (22.80)	FPS_4 (22.87)	FPS_5 (22.45)	FPS_6 (22.52)	FPS_7 (22.60)	FPS_8 (22.70)	FPS_9 (22.15)	FPS_10 (22.80)	FPS_11 (22.75)	FPS_12 (22.65)	FPS_13 (22.85)	FPS_14 (22.46)	FPS_15 (22.83)	FPS_16 (22.68)	FPS_17 (22.56)	FPS_18 (22.16)	FPS_19 (22.16)	
+**PERF : FPS_0 (22.83)	FPS_1 (22.98)	FPS_2 (22.85)	FPS_3 (22.83)	FPS_4 (22.88)	FPS_5 (22.46)	FPS_6 (22.60)	FPS_7 (22.63)	FPS_8 (22.68)	FPS_9 (22.15)	FPS_10 (22.79)	FPS_11 (22.73)	FPS_12 (22.71)	FPS_13 (22.86)	FPS_14 (22.42)	FPS_15 (22.88)	FPS_16 (22.59)	FPS_17 (22.76)	FPS_18 (22.26)	FPS_19 (22.19)	
+**PERF : FPS_0 (22.75)	FPS_1 (22.89)	FPS_2 (22.89)	FPS_3 (22.75)	FPS_4 (22.84)	FPS_5 (22.50)	FPS_6 (22.61)	FPS_7 (22.61)	FPS_8 (22.63)	FPS_9 (22.21)	FPS_10 (22.81)	FPS_11 (22.69)	FPS_12 (22.81)	FPS_13 (22.97)	FPS_14 (22.42)	FPS_15 (23.02)	FPS_16 (22.74)	FPS_17 (22.88)	FPS_18 (22.31)	FPS_19 (22.34)	
+**PERF : FPS_0 (22.74)	FPS_1 (22.86)	FPS_2 (22.89)	FPS_3 (22.76)	FPS_4 (22.91)	FPS_5 (22.52)	FPS_6 (22.59)	FPS_7 (22.56)	FPS_8 (22.59)	FPS_9 (22.21)	FPS_10 (22.65)	FPS_11 (22.66)	FPS_12 (22.76)	FPS_13 (22.94)	FPS_14 (22.41)	FPS_15 (22.92)	FPS_16 (22.59)	FPS_17 (22.77)	FPS_18 (22.24)	FPS_19 (22.39)	
+**PERF : FPS_0 (22.73)	FPS_1 (22.91)	FPS_2 (22.90)	FPS_3 (22.78)	FPS_4 (22.91)	FPS_5 (22.58)	FPS_6 (22.66)	FPS_7 (22.62)	FPS_8 (22.67)	FPS_9 (22.29)	FPS_10 (22.77)	FPS_11 (22.74)	FPS_12 (22.76)	FPS_13 (22.91)	FPS_14 (22.51)	FPS_15 (22.93)	FPS_16 (22.63)	FPS_17 (22.74)	FPS_18 (22.39)	FPS_19 (22.46)	
+PERF : FPS_0 (22.32)	FPS_1 (22.39)	FPS_2 (22.33)	FPS_3 (22.36)	FPS_4 (22.41)	FPS_5 (22.35)	FPS_6 (22.28)	FPS_7 (22.20)	FPS_8 (22.42)	FPS_9 (21.89)	FPS_10 (22.33)	FPS_11 (22.37)	FPS_12 (22.29)	FPS_13 (22.40)	FPS_14 (22.33)	FPS_15 (22.37)	FPS_16 (22.20)	FPS_17 (22.29)	FPS_18 (22.16)	FPS_19 (22.37)	
+
+Caught SIGINT. Quitting loop...
+
+
+
+
+# gpu    pwr  gtemp  mtemp     sm    mem    enc    dec    jpg    ofa   mclk   pclk 
+# Idx      W      C      C      %      %      %      %      %      %    MHz    MHz 
+    0    355     64      -    100     55      0     88      0      0   9001   2385 
+    0    347     64      -    100     54      0     75      0      0   9001   2460 
+    0    353     63      -    100     59      0     83      0      0   9001   2460 
+    0    336     64      -    100     59      0     77      0      0   9001   2460 
+    0    344     63      -    100     60      0     71      0      0   9001   2445 
+    0    347     63      -    100     51      0     82      0      0   9001   2430 
+    0    345     63      -    100     55      0     90      0      0   9001   2460 
+    0    353     62      -    100     61      0     62      0      0   9001   2430 
+    0    352     64      -    100     57      0     69      0      0   9001   2505 
+    0    345     63      -    100     64      0     58      0      0   9001   2475 
+    0    348     64      -    100     56      0     64      0      0   9001   2475 
+    0    349     64      -    100     62      0     60      0      0   9001   2505 
+    0    346     63      -    100     57      0     72      0      0   9001   2475 
+    0    346     64      -    100     56      0     75      0      0   9001   2475 
+    0    346     63      -     99     50      0     85      0      0   9001   2385 
+    0    349     64      -    100     55      0     73      0      0   9001   2415 
+    0    342     64      -    100     60      0     92      0      0   9001   2490 
+    0    357     64      -    100     57      0     64      0      0   9001   2460 
+    0    347     63      -    100     58      0     80      0      0   9001   2430 
+    0    345     64      -    100     59      0     81      0      0   9001   2490 
+    0    346     63      -    100     62      0     95      0      0   9001   2490 
+    0    345     63      -    100     56      0     57      0      0   9001   2460 
+    0    342     64      -    100     54      0     72      0      0   9001   2415 
+    0    347     64      -    100     58      0     85      0      0   9001   2475 
+    0    345     63      -    100     56      0     54      0      0   9001   2370 
+    0    346     64      -    100     54      0     74      0      0   9001   2490 
+    0    353     63      -    100     58      0     71      0      0   9001   2370 
+    0    348     64      -    100     58      0     73      0      0   9001   2445 
+    0    347     62      -    100     55      0     81      0      0   9001   2490 
+    0    350     64      -    100     59      0     74      0      0   9001   2400 
+    0    342     64      -    100     58      0     73      0      0   9001   2445 
+    0    352     63      -    100     57      0     75      0      0   9001   2475 
+    0    348     64      -    100     61      0     73      0      0   9001   2460 
+    0    347     63      -    100     54      0     88      0      0   9001   2490 
+    0    342     63      -    100     55      0     80      0      0   9001   2490 
+    0    340     63      -    100     63      0     88      0      0   9001   2445 
+    0    343     64      -    100     60      0     81      0      0   9001   2445 
+    0    348     64      -    100     54      0     89      0      0   9001   2475 
+    0    354     63      -    100     56      0     59      0      0   9001   2460 
+    0    351     63      -    100     55      0     88      0      0   9001   2445 
+    0    348     64      -    100     59      0     78      0      0   9001   2460 
+    0    349     63      -    100     59      0     89      0      0   9001   2445 
+    0    348     63      -    100     60      0     80      0      0   9001   2430 
+    0    348     64      -    100     51      0     81      0      0   9001   2475 

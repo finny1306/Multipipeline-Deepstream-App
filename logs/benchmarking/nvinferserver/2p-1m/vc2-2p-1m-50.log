@@ -1,0 +1,292 @@
+
+=== STARTING ROBUST PIPELINE ===
+Civetweb version: v1.16
+0:00:00.184524272 [35m11158[00m 0x5b3283d90900 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:365:validatePluginConfig:<primary-inference>[00m warning: Configuration file batch-size reset to: 64
+0:00:00.184591067 [35m11158[00m 0x5b3283d90900 [33;01mWARN   [00m [00m       nvinferserver gstnvinferserver_impl.cpp:371:validatePluginConfig:<primary-inference>[00m warning: Configuration file unique-id reset to: 2
+Server running at port: 9002
+INFO: TrtISBackend id:2 initialized model: vc
+
+
+
+
+
+
+
+
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.59)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (21.60)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (21.46)	FPS_1 (21.20)	FPS_2 (22.00)	FPS_3 (20.80)	FPS_4 (21.20)	FPS_5 (20.20)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.30)	FPS_1 (21.10)	FPS_2 (22.30)	FPS_3 (21.50)	FPS_4 (21.80)	FPS_5 (20.90)	FPS_6 (21.79)	FPS_7 (21.19)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.32)	FPS_1 (21.26)	FPS_2 (22.26)	FPS_3 (21.86)	FPS_4 (21.73)	FPS_5 (21.06)	FPS_6 (21.49)	FPS_7 (21.69)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.23)	FPS_1 (21.30)	FPS_2 (22.35)	FPS_3 (21.90)	FPS_4 (21.60)	FPS_5 (20.80)	FPS_6 (21.20)	FPS_7 (21.40)	FPS_8 (22.00)	FPS_9 (20.80)	FPS_10 (19.60)	FPS_11 (20.20)	FPS_12 (20.60)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.48)	FPS_1 (21.44)	FPS_2 (22.48)	FPS_3 (21.76)	FPS_4 (21.72)	FPS_5 (20.92)	FPS_6 (21.30)	FPS_7 (21.65)	FPS_8 (21.20)	FPS_9 (20.70)	FPS_10 (19.60)	FPS_11 (20.90)	FPS_12 (21.00)	FPS_13 (21.99)	FPS_14 (22.59)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (21.37)	FPS_1 (21.36)	FPS_2 (22.23)	FPS_3 (21.56)	FPS_4 (21.73)	FPS_5 (20.86)	FPS_6 (21.12)	FPS_7 (21.72)	FPS_8 (21.06)	FPS_9 (20.33)	FPS_10 (20.26)	FPS_11 (20.93)	FPS_12 (21.40)	FPS_13 (21.40)	FPS_14 (21.90)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.55)	FPS_1 (21.37)	FPS_2 (22.23)	FPS_3 (21.65)	FPS_4 (21.63)	FPS_5 (20.88)	FPS_6 (21.20)	FPS_7 (21.43)	FPS_8 (21.15)	FPS_9 (20.30)	FPS_10 (20.25)	FPS_11 (21.40)	FPS_12 (21.60)	FPS_13 (21.60)	FPS_14 (21.80)	FPS_15 (21.20)	FPS_16 (21.00)	FPS_17 (22.20)	FPS_18 (20.00)	FPS_19 (19.80)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.48)	FPS_1 (21.30)	FPS_2 (22.22)	FPS_3 (21.72)	FPS_4 (21.45)	FPS_5 (20.85)	FPS_6 (21.14)	FPS_7 (21.34)	FPS_8 (21.32)	FPS_9 (20.08)	FPS_10 (20.28)	FPS_11 (21.48)	FPS_12 (21.68)	FPS_13 (21.60)	FPS_14 (22.00)	FPS_15 (19.90)	FPS_16 (21.50)	FPS_17 (22.40)	FPS_18 (20.70)	FPS_19 (20.10)	FPS_20 (21.40)	FPS_21 (21.20)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.38)	FPS_1 (21.17)	FPS_2 (22.13)	FPS_3 (21.69)	FPS_4 (21.42)	FPS_5 (20.75)	FPS_6 (21.02)	FPS_7 (21.27)	FPS_8 (21.43)	FPS_9 (20.03)	FPS_10 (20.03)	FPS_11 (21.33)	FPS_12 (21.60)	FPS_13 (21.36)	FPS_14 (21.52)	FPS_15 (20.00)	FPS_16 (21.20)	FPS_17 (21.80)	FPS_18 (21.00)	FPS_19 (20.06)	FPS_20 (21.00)	FPS_21 (20.70)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.43)	FPS_1 (21.26)	FPS_2 (22.04)	FPS_3 (21.68)	FPS_4 (21.42)	FPS_5 (20.74)	FPS_6 (21.13)	FPS_7 (21.17)	FPS_8 (21.57)	FPS_9 (20.05)	FPS_10 (19.48)	FPS_11 (21.25)	FPS_12 (21.80)	FPS_13 (21.46)	FPS_14 (21.66)	FPS_15 (20.40)	FPS_16 (21.55)	FPS_17 (21.90)	FPS_18 (20.85)	FPS_19 (20.25)	FPS_20 (20.60)	FPS_21 (20.80)	FPS_22 (21.00)	FPS_23 (22.00)	FPS_24 (21.60)	FPS_25 (21.00)	FPS_26 (22.00)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.30)	FPS_1 (21.16)	FPS_2 (21.96)	FPS_3 (21.52)	FPS_4 (21.32)	FPS_5 (20.69)	FPS_6 (20.98)	FPS_7 (21.10)	FPS_8 (21.57)	FPS_9 (19.82)	FPS_10 (19.25)	FPS_11 (21.10)	FPS_12 (21.77)	FPS_13 (21.51)	FPS_14 (21.57)	FPS_15 (20.52)	FPS_16 (21.76)	FPS_17 (22.08)	FPS_18 (20.76)	FPS_19 (20.68)	FPS_20 (20.45)	FPS_21 (20.75)	FPS_22 (20.90)	FPS_23 (21.90)	FPS_24 (21.90)	FPS_25 (20.80)	FPS_26 (22.00)	FPS_27 (20.60)	FPS_28 (22.40)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (21.20)	FPS_1 (21.05)	FPS_2 (21.80)	FPS_3 (21.40)	FPS_4 (21.26)	FPS_5 (20.63)	FPS_6 (20.92)	FPS_7 (21.03)	FPS_8 (21.40)	FPS_9 (19.80)	FPS_10 (19.13)	FPS_11 (20.93)	FPS_12 (21.62)	FPS_13 (21.30)	FPS_14 (21.40)	FPS_15 (20.30)	FPS_16 (21.40)	FPS_17 (21.70)	FPS_18 (20.23)	FPS_19 (20.53)	FPS_20 (20.28)	FPS_21 (20.48)	FPS_22 (20.06)	FPS_23 (21.40)	FPS_24 (21.66)	FPS_25 (20.80)	FPS_26 (21.60)	FPS_27 (20.70)	FPS_28 (21.70)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (20.98)	FPS_1 (20.81)	FPS_2 (21.50)	FPS_3 (21.14)	FPS_4 (21.01)	FPS_5 (20.43)	FPS_6 (20.68)	FPS_7 (20.78)	FPS_8 (21.06)	FPS_9 (19.62)	FPS_10 (19.02)	FPS_11 (20.64)	FPS_12 (21.26)	FPS_13 (20.93)	FPS_14 (21.02)	FPS_15 (19.97)	FPS_16 (20.91)	FPS_17 (21.17)	FPS_18 (19.91)	FPS_19 (20.17)	FPS_20 (19.76)	FPS_21 (20.06)	FPS_22 (19.55)	FPS_23 (20.55)	FPS_24 (20.75)	FPS_25 (20.10)	FPS_26 (20.70)	FPS_27 (19.80)	FPS_28 (20.46)	FPS_29 (18.00)	FPS_30 (17.80)	FPS_31 (18.00)	FPS_32 (18.00)	FPS_33 (18.00)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (20.82)	FPS_1 (20.64)	FPS_2 (21.28)	FPS_3 (20.94)	FPS_4 (20.83)	FPS_5 (20.28)	FPS_6 (20.50)	FPS_7 (20.60)	FPS_8 (20.82)	FPS_9 (19.51)	FPS_10 (18.96)	FPS_11 (20.43)	FPS_12 (21.00)	FPS_13 (20.68)	FPS_14 (20.76)	FPS_15 (19.77)	FPS_16 (20.60)	FPS_17 (20.82)	FPS_18 (19.72)	FPS_19 (19.95)	FPS_20 (19.57)	FPS_21 (19.83)	FPS_22 (19.32)	FPS_23 (20.12)	FPS_24 (20.28)	FPS_25 (19.76)	FPS_26 (20.24)	FPS_27 (19.45)	FPS_28 (19.95)	FPS_29 (18.20)	FPS_30 (18.10)	FPS_31 (18.20)	FPS_32 (18.20)	FPS_33 (18.20)	FPS_34 (18.40)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (20.56)	FPS_1 (20.36)	FPS_2 (20.96)	FPS_3 (20.64)	FPS_4 (20.53)	FPS_5 (20.02)	FPS_6 (20.21)	FPS_7 (20.30)	FPS_8 (20.45)	FPS_9 (19.25)	FPS_10 (18.75)	FPS_11 (20.10)	FPS_12 (20.61)	FPS_13 (20.29)	FPS_14 (20.36)	FPS_15 (19.40)	FPS_16 (20.13)	FPS_17 (20.33)	FPS_18 (19.35)	FPS_19 (19.55)	FPS_20 (19.17)	FPS_21 (19.40)	FPS_22 (18.83)	FPS_23 (19.50)	FPS_24 (19.63)	FPS_25 (19.20)	FPS_26 (19.60)	FPS_27 (18.84)	FPS_28 (19.24)	FPS_29 (17.60)	FPS_30 (17.53)	FPS_31 (17.60)	FPS_32 (17.60)	FPS_33 (17.60)	FPS_34 (17.40)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (20.22)	FPS_1 (19.98)	FPS_2 (20.55)	FPS_3 (20.25)	FPS_4 (20.15)	FPS_5 (19.67)	FPS_6 (19.82)	FPS_7 (19.90)	FPS_8 (19.98)	FPS_9 (18.87)	FPS_10 (18.41)	FPS_11 (19.66)	FPS_12 (20.14)	FPS_13 (19.80)	FPS_14 (19.86)	FPS_15 (18.90)	FPS_16 (19.56)	FPS_17 (19.74)	FPS_18 (18.86)	FPS_19 (19.04)	FPS_20 (18.64)	FPS_21 (18.84)	FPS_22 (18.20)	FPS_23 (18.77)	FPS_24 (18.88)	FPS_25 (18.51)	FPS_26 (18.85)	FPS_27 (18.10)	FPS_28 (18.43)	FPS_29 (16.80)	FPS_30 (16.75)	FPS_31 (16.80)	FPS_32 (16.80)	FPS_33 (16.80)	FPS_34 (16.40)	FPS_35 (14.40)	FPS_36 (14.40)	FPS_37 (14.40)	FPS_38 (14.40)	FPS_39 (14.40)	FPS_40 (14.40)	
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (19.97)	FPS_1 (19.71)	FPS_2 (20.24)	FPS_3 (19.96)	FPS_4 (19.87)	FPS_5 (19.42)	FPS_6 (19.55)	FPS_7 (19.62)	FPS_8 (19.65)	FPS_9 (18.63)	FPS_10 (18.20)	FPS_11 (19.35)	FPS_12 (19.80)	FPS_13 (19.46)	FPS_14 (19.52)	FPS_15 (18.58)	FPS_16 (19.18)	FPS_17 (19.34)	FPS_18 (18.54)	FPS_19 (18.71)	FPS_20 (18.32)	FPS_21 (18.50)	FPS_22 (17.85)	FPS_23 (18.35)	FPS_24 (18.45)	FPS_25 (18.12)	FPS_26 (18.42)	FPS_27 (17.71)	FPS_28 (18.00)	FPS_29 (16.52)	FPS_30 (16.48)	FPS_31 (16.52)	FPS_32 (16.52)	FPS_33 (16.52)	FPS_34 (16.15)	FPS_35 (14.90)	FPS_36 (14.90)	FPS_37 (14.90)	FPS_38 (14.90)	FPS_39 (14.90)	FPS_40 (14.90)	FPS_41 (15.40)	
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+Opening in BLOCKING MODE 
+Opening in BLOCKING MODE 
+uri:/api/v1/stream/add
+method:POST
+Protocol set: 0x7
+**PERF : FPS_0 (19.67)	FPS_1 (19.40)	FPS_2 (19.90)	FPS_3 (19.63)	FPS_4 (19.54)	FPS_5 (19.12)	FPS_6 (19.22)	FPS_7 (19.29)	FPS_8 (19.28)	FPS_9 (18.32)	FPS_10 (17.92)	FPS_11 (19.00)	FPS_12 (19.41)	FPS_13 (19.07)	FPS_14 (19.13)	FPS_15 (18.20)	FPS_16 (18.75)	FPS_17 (18.90)	FPS_18 (18.16)	FPS_19 (18.31)	FPS_20 (17.92)	FPS_21 (18.09)	FPS_22 (17.42)	FPS_23 (17.86)	FPS_24 (17.95)	FPS_25 (17.66)	FPS_26 (17.93)	FPS_27 (17.25)	FPS_28 (17.50)	FPS_29 (16.10)	FPS_30 (16.06)	FPS_31 (16.10)	FPS_32 (16.10)	FPS_33 (16.10)	FPS_34 (15.72)	FPS_35 (14.60)	FPS_36 (14.60)	FPS_37 (14.60)	FPS_38 (14.60)	FPS_39 (14.60)	FPS_40 (14.60)	FPS_41 (14.70)	
+Opening in BLOCKING MODE 
+**PERF : FPS_0 (19.39)	FPS_1 (19.10)	FPS_2 (19.58)	FPS_3 (19.32)	FPS_4 (19.24)	FPS_5 (18.84)	FPS_6 (18.92)	FPS_7 (18.99)	FPS_8 (18.93)	FPS_9 (18.04)	FPS_10 (17.66)	FPS_11 (18.67)	FPS_12 (19.06)	FPS_13 (18.72)	FPS_14 (18.77)	FPS_15 (17.86)	FPS_16 (18.37)	FPS_17 (18.51)	FPS_18 (17.83)	FPS_19 (17.97)	FPS_20 (17.58)	FPS_21 (17.73)	FPS_22 (17.06)	FPS_23 (17.46)	FPS_24 (17.54)	FPS_25 (17.28)	FPS_26 (17.52)	FPS_27 (16.86)	FPS_28 (17.09)	FPS_29 (15.77)	FPS_30 (15.74)	FPS_31 (15.77)	FPS_32 (15.77)	FPS_33 (15.77)	FPS_34 (15.40)	FPS_35 (14.40)	FPS_36 (14.40)	FPS_37 (14.40)	FPS_38 (14.40)	FPS_39 (14.40)	FPS_40 (14.40)	FPS_41 (14.40)	FPS_42 (13.80)	FPS_43 (13.80)	FPS_44 (13.80)	FPS_45 (13.80)	FPS_46 (13.80)	FPS_47 (13.80)	
+**PERF : FPS_0 (19.14)	FPS_1 (18.85)	FPS_2 (19.30)	FPS_3 (19.06)	FPS_4 (18.98)	FPS_5 (18.60)	FPS_6 (18.66)	FPS_7 (18.72)	FPS_8 (18.64)	FPS_9 (17.80)	FPS_10 (17.44)	FPS_11 (18.40)	FPS_12 (18.76)	FPS_13 (18.42)	FPS_14 (18.47)	FPS_15 (17.58)	FPS_16 (18.05)	FPS_17 (18.18)	FPS_18 (17.55)	FPS_19 (17.68)	FPS_20 (17.31)	FPS_21 (17.44)	FPS_22 (16.78)	FPS_23 (17.14)	FPS_24 (17.22)	FPS_25 (16.98)	FPS_26 (17.20)	FPS_27 (16.58)	FPS_28 (16.78)	FPS_29 (15.55)	FPS_30 (15.52)	FPS_31 (15.55)	FPS_32 (15.55)	FPS_33 (15.55)	FPS_34 (15.20)	FPS_35 (14.32)	FPS_36 (14.32)	FPS_37 (14.32)	FPS_38 (14.32)	FPS_39 (14.32)	FPS_40 (14.32)	FPS_41 (14.30)	FPS_42 (13.90)	FPS_43 (13.90)	FPS_44 (13.90)	FPS_45 (13.90)	FPS_46 (13.90)	FPS_47 (13.90)	FPS_48 (14.00)	
+**PERF : FPS_0 (18.89)	FPS_1 (18.59)	FPS_2 (19.02)	FPS_3 (18.79)	FPS_4 (18.71)	FPS_5 (18.35)	FPS_6 (18.40)	FPS_7 (18.46)	FPS_8 (18.35)	FPS_9 (17.55)	FPS_10 (17.22)	FPS_11 (18.12)	FPS_12 (18.46)	FPS_13 (18.13)	FPS_14 (18.17)	FPS_15 (17.30)	FPS_16 (17.74)	FPS_17 (17.86)	FPS_18 (17.28)	FPS_19 (17.40)	FPS_20 (17.03)	FPS_21 (17.15)	FPS_22 (16.50)	FPS_23 (16.83)	FPS_24 (16.90)	FPS_25 (16.68)	FPS_26 (16.88)	FPS_27 (16.29)	FPS_28 (16.47)	FPS_29 (15.31)	FPS_30 (15.29)	FPS_31 (15.31)	FPS_32 (15.31)	FPS_33 (15.31)	FPS_34 (14.97)	FPS_35 (14.16)	FPS_36 (14.16)	FPS_37 (14.16)	FPS_38 (14.16)	FPS_39 (14.16)	FPS_40 (14.16)	FPS_41 (14.12)	FPS_42 (13.73)	FPS_43 (13.73)	FPS_44 (13.73)	FPS_45 (13.73)	FPS_46 (13.73)	FPS_47 (13.73)	FPS_48 (13.70)	
+**PERF : FPS_0 (18.68)	FPS_1 (18.37)	FPS_2 (18.78)	FPS_3 (18.56)	FPS_4 (18.49)	FPS_5 (18.14)	FPS_6 (18.18)	FPS_7 (18.24)	FPS_8 (18.11)	FPS_9 (17.36)	FPS_10 (17.04)	FPS_11 (17.89)	FPS_12 (18.22)	FPS_13 (17.89)	FPS_14 (17.93)	FPS_15 (17.08)	FPS_16 (17.50)	FPS_17 (17.61)	FPS_18 (17.06)	FPS_19 (17.17)	FPS_20 (16.81)	FPS_21 (16.93)	FPS_22 (16.29)	FPS_23 (16.60)	FPS_24 (16.66)	FPS_25 (16.46)	FPS_26 (16.64)	FPS_27 (16.08)	FPS_28 (16.25)	FPS_29 (15.16)	FPS_30 (15.14)	FPS_31 (15.16)	FPS_32 (15.16)	FPS_33 (15.16)	FPS_34 (14.84)	FPS_35 (14.11)	FPS_36 (14.11)	FPS_37 (14.11)	FPS_38 (14.11)	FPS_39 (14.11)	FPS_40 (14.11)	FPS_41 (14.06)	FPS_42 (13.75)	FPS_43 (13.75)	FPS_44 (13.75)	FPS_45 (13.75)	FPS_46 (13.75)	FPS_47 (13.75)	FPS_48 (13.73)	FPS_49 (13.80)	
+**PERF : FPS_0 (18.48)	FPS_1 (18.16)	FPS_2 (18.55)	FPS_3 (18.35)	FPS_4 (18.28)	FPS_5 (17.95)	FPS_6 (17.97)	FPS_7 (18.02)	FPS_8 (17.89)	FPS_9 (17.17)	FPS_10 (16.87)	FPS_11 (17.68)	FPS_12 (17.99)	FPS_13 (17.66)	FPS_14 (17.70)	FPS_15 (16.88)	FPS_16 (17.27)	FPS_17 (17.37)	FPS_18 (16.86)	FPS_19 (16.96)	FPS_20 (16.61)	FPS_21 (16.72)	FPS_22 (16.10)	FPS_23 (16.38)	FPS_24 (16.44)	FPS_25 (16.25)	FPS_26 (16.43)	FPS_27 (15.89)	FPS_28 (16.04)	FPS_29 (15.02)	FPS_30 (15.00)	FPS_31 (15.02)	FPS_32 (15.02)	FPS_33 (15.02)	FPS_34 (14.72)	FPS_35 (14.05)	FPS_36 (14.05)	FPS_37 (14.05)	FPS_38 (14.05)	FPS_39 (14.05)	FPS_40 (14.05)	FPS_41 (14.00)	FPS_42 (13.72)	FPS_43 (13.72)	FPS_44 (13.72)	FPS_45 (13.72)	FPS_46 (13.72)	FPS_47 (13.72)	FPS_48 (13.70)	FPS_49 (13.70)	
+**PERF : FPS_0 (18.27)	FPS_1 (17.95)	FPS_2 (18.32)	FPS_3 (18.12)	FPS_4 (18.06)	FPS_5 (17.74)	FPS_6 (17.75)	FPS_7 (17.81)	FPS_8 (17.65)	FPS_9 (16.97)	FPS_10 (16.68)	FPS_11 (17.45)	FPS_12 (17.75)	FPS_13 (17.43)	FPS_14 (17.47)	FPS_15 (16.66)	FPS_16 (17.03)	FPS_17 (17.13)	FPS_18 (16.64)	FPS_19 (16.74)	FPS_20 (16.40)	FPS_21 (16.50)	FPS_22 (15.89)	FPS_23 (16.16)	FPS_24 (16.21)	FPS_25 (16.04)	FPS_26 (16.20)	FPS_27 (15.68)	FPS_28 (15.83)	FPS_29 (14.85)	FPS_30 (14.83)	FPS_31 (14.85)	FPS_32 (14.85)	FPS_33 (14.85)	FPS_34 (14.56)	FPS_35 (13.93)	FPS_36 (13.93)	FPS_37 (13.93)	FPS_38 (13.93)	FPS_39 (13.93)	FPS_40 (13.93)	FPS_41 (13.87)	FPS_42 (13.60)	FPS_43 (13.60)	FPS_44 (13.60)	FPS_45 (13.60)	FPS_46 (13.60)	FPS_47 (13.60)	FPS_48 (13.56)	FPS_49 (13.46)	
+**PERF : FPS_0 (18.09)	FPS_1 (17.77)	FPS_2 (18.13)	FPS_3 (17.94)	FPS_4 (17.88)	FPS_5 (17.57)	FPS_6 (17.58)	FPS_7 (17.63)	FPS_8 (17.47)	FPS_9 (16.82)	FPS_10 (16.54)	FPS_11 (17.28)	FPS_12 (17.56)	FPS_13 (17.24)	FPS_14 (17.28)	FPS_15 (16.50)	FPS_16 (16.85)	FPS_17 (16.94)	FPS_18 (16.48)	FPS_19 (16.58)	FPS_20 (16.24)	FPS_21 (16.34)	FPS_22 (15.75)	FPS_23 (16.00)	FPS_24 (16.05)	FPS_25 (15.88)	FPS_26 (16.03)	FPS_27 (15.54)	FPS_28 (15.68)	FPS_29 (14.75)	FPS_30 (14.74)	FPS_31 (14.75)	FPS_32 (14.75)	FPS_33 (14.75)	FPS_34 (14.48)	FPS_35 (13.90)	FPS_36 (13.90)	FPS_37 (13.90)	FPS_38 (13.90)	FPS_39 (13.90)	FPS_40 (13.90)	FPS_41 (13.84)	FPS_42 (13.60)	FPS_43 (13.60)	FPS_44 (13.60)	FPS_45 (13.60)	FPS_46 (13.60)	FPS_47 (13.60)	FPS_48 (13.56)	FPS_49 (13.50)	
+**PERF : FPS_0 (17.93)	FPS_1 (17.60)	FPS_2 (17.95)	FPS_3 (17.77)	FPS_4 (17.70)	FPS_5 (17.41)	FPS_6 (17.41)	FPS_7 (17.46)	FPS_8 (17.29)	FPS_9 (16.67)	FPS_10 (16.41)	FPS_11 (17.11)	FPS_12 (17.38)	FPS_13 (17.07)	FPS_14 (17.11)	FPS_15 (16.35)	FPS_16 (16.68)	FPS_17 (16.77)	FPS_18 (16.33)	FPS_19 (16.42)	FPS_20 (16.09)	FPS_21 (16.19)	FPS_22 (15.61)	FPS_23 (15.84)	FPS_24 (15.89)	FPS_25 (15.74)	FPS_26 (15.88)	FPS_27 (15.41)	FPS_28 (15.53)	FPS_29 (14.65)	FPS_30 (14.64)	FPS_31 (14.65)	FPS_32 (14.65)	FPS_33 (14.65)	FPS_34 (14.40)	FPS_35 (13.85)	FPS_36 (13.85)	FPS_37 (13.85)	FPS_38 (13.85)	FPS_39 (13.85)	FPS_40 (13.85)	FPS_41 (13.80)	FPS_42 (13.57)	FPS_43 (13.57)	FPS_44 (13.57)	FPS_45 (13.57)	FPS_46 (13.57)	FPS_47 (13.57)	FPS_48 (13.54)	FPS_49 (13.48)	
+**PERF : FPS_0 (17.78)	FPS_1 (17.46)	FPS_2 (17.79)	FPS_3 (17.61)	FPS_4 (17.55)	FPS_5 (17.27)	FPS_6 (17.27)	FPS_7 (17.31)	FPS_8 (17.14)	FPS_9 (16.54)	FPS_10 (16.29)	FPS_11 (16.96)	FPS_12 (17.22)	FPS_13 (16.92)	FPS_14 (16.95)	FPS_15 (16.22)	FPS_16 (16.53)	FPS_17 (16.62)	FPS_18 (16.20)	FPS_19 (16.28)	FPS_20 (15.97)	FPS_21 (16.06)	FPS_22 (15.50)	FPS_23 (15.72)	FPS_24 (15.76)	FPS_25 (15.62)	FPS_26 (15.75)	FPS_27 (15.30)	FPS_28 (15.42)	FPS_29 (14.58)	FPS_30 (14.57)	FPS_31 (14.58)	FPS_32 (14.58)	FPS_33 (14.58)	FPS_34 (14.34)	FPS_35 (13.83)	FPS_36 (13.83)	FPS_37 (13.83)	FPS_38 (13.83)	FPS_39 (13.83)	FPS_40 (13.83)	FPS_41 (13.78)	FPS_42 (13.57)	FPS_43 (13.57)	FPS_44 (13.57)	FPS_45 (13.57)	FPS_46 (13.57)	FPS_47 (13.57)	FPS_48 (13.55)	FPS_49 (13.50)	
+**PERF : FPS_0 (17.64)	FPS_1 (17.32)	FPS_2 (17.64)	FPS_3 (17.47)	FPS_4 (17.41)	FPS_5 (17.14)	FPS_6 (17.13)	FPS_7 (17.17)	FPS_8 (17.00)	FPS_9 (16.42)	FPS_10 (16.18)	FPS_11 (16.83)	FPS_12 (17.08)	FPS_13 (16.78)	FPS_14 (16.81)	FPS_15 (16.10)	FPS_16 (16.40)	FPS_17 (16.48)	FPS_18 (16.08)	FPS_19 (16.16)	FPS_20 (15.85)	FPS_21 (15.94)	FPS_22 (15.40)	FPS_23 (15.61)	FPS_24 (15.65)	FPS_25 (15.51)	FPS_26 (15.64)	FPS_27 (15.21)	FPS_28 (15.32)	FPS_29 (14.52)	FPS_30 (14.51)	FPS_31 (14.52)	FPS_32 (14.52)	FPS_33 (14.52)	FPS_34 (14.29)	FPS_35 (13.81)	FPS_36 (13.81)	FPS_37 (13.81)	FPS_38 (13.81)	FPS_39 (13.81)	FPS_40 (13.81)	FPS_41 (13.76)	FPS_42 (13.58)	FPS_43 (13.58)	FPS_44 (13.58)	FPS_45 (13.58)	FPS_46 (13.58)	FPS_47 (13.58)	FPS_48 (13.55)	FPS_49 (13.51)	
+**PERF : FPS_0 (17.49)	FPS_1 (17.18)	FPS_2 (17.49)	FPS_3 (17.32)	FPS_4 (17.27)	FPS_5 (17.00)	FPS_6 (16.99)	FPS_7 (17.03)	FPS_8 (16.85)	FPS_9 (16.30)	FPS_10 (16.07)	FPS_11 (16.69)	FPS_12 (16.93)	FPS_13 (16.64)	FPS_14 (16.67)	FPS_15 (15.97)	FPS_16 (16.26)	FPS_17 (16.34)	FPS_18 (15.95)	FPS_19 (16.03)	FPS_20 (15.73)	FPS_21 (15.82)	FPS_22 (15.29)	FPS_23 (15.49)	FPS_24 (15.53)	FPS_25 (15.40)	FPS_26 (15.52)	FPS_27 (15.10)	FPS_28 (15.21)	FPS_29 (14.44)	FPS_30 (14.43)	FPS_31 (14.44)	FPS_32 (14.44)	FPS_33 (14.44)	FPS_34 (14.22)	FPS_35 (13.77)	FPS_36 (13.77)	FPS_37 (13.77)	FPS_38 (13.77)	FPS_39 (13.77)	FPS_40 (13.77)	FPS_41 (13.72)	FPS_42 (13.54)	FPS_43 (13.54)	FPS_44 (13.54)	FPS_45 (13.54)	FPS_46 (13.54)	FPS_47 (13.54)	FPS_48 (13.52)	FPS_49 (13.47)	
+
+Caught SIGINT. Quitting loop...
+
+
+
+
+VC + VC
+# gpu    pwr  gtemp  mtemp     sm    mem    enc    dec    jpg    ofa   mclk   pclk 
+# Idx      W      C      C      %      %      %      %      %      %    MHz    MHz 
+    0    196     52      -     38     33      0     70      0      0   9001   2520 
+    0    233     56      -     57     47      0     51      0      0   9001   2520 
+    0    232     56      -     65     52      0     42      0      0   9001   2520 
+    0    205     56      -     51     43      0     56      0      0   9001   2520 
+    0    200     52      -     40     33      0     72      0      0   9001   2520 
+    0    228     54      -     65     55      0     52      0      0   9001   2520 
+    0    241     52      -     44     35      0     60      0      0   9001   2520 
+    0    218     55      -     46     36      0     67      0      0   9001   2520 
+    0    232     54      -     54     43      0     60      0      0   9001   2520 
+    0    212     55      -     54     43      0     65      0      0   9001   2520 
+    0    232     53      -     54     43      0     52      0      0   9001   2520 
+    0    231     53      -     53     43      0     54      0      0   9001   2520 
+    0    244     55      -     54     44      0     58      0      0   9001   2520 
+    0    236     52      -     40     33      0     65      0      0   9001   2520 
+    0    210     52      -     45     39      0     58      0      0   9001   2520 
+    0    225     52      -     45     40      0     56      0      0   9001   2520 
+    0    213     53      -     53     44      0     45      0      0   9001   2520 
+    0    216     55      -     60     50      0     45      0      0   9001   2505 
+    0    219     53      -     53     42      0     56      0      0   9001   2520 
+    0    228     54      -     59     48      0     42      0      0   9001   2520 
+    0    221     53      -     37     30      0     41      0      0   9001   2520 
+    0    202     55      -     62     50      0     44      0      0   9001   2520 
+    0    222     54      -     50     40      0     66      0      0   9001   2520 
+    0    234     53      -     54     44      0     52      0      0   9001   2520 
+    0    211     53      -     44     39      0     53      0      0   9001   2520 
+    0    223     52      -     54     43      0     60      0      0   9001   2520 
+    0    234     53      -     56     44      0     67      0      0   9001   2520 
+    0    207     54      -     59     48      0     57      0      0   9001   2520 
+    0    180     53      -     38     30      0     39      0      0   9001   2520 
+    0    235     55      -     61     48      0     53      0      0   9001   2520 
+    0    219     52      -     59     49      0     44      0      0   9001   2520 
+    0    232     53      -     52     42      0     51      0      0   9001   2520 
+    0    222     55      -     41     33      0     65      0      0   9001   2520 
+    0    230     56      -     64     51      0     38      0      0   9001   2520 
+    0    222     57      -     66     54      0     44      0      0   9001   2505 
+    0    103     49      -     41      4      0      0      0      0   9001   2520 
