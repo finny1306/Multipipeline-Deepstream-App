@@ -93,3 +93,41 @@ sink:
   qos: 0
   rtsp-port: 8554
   udp-port: 5400
+
+
+# --- Message Broker (nvmsgbroker) ---
+# Sends metadata payloads to an external broker (Kafka, MQTT, Redis, AMQP, etc.)
+msgbroker:
+  enable: 0
+  # Protocol adapter library path
+  # Kafka:  /opt/nvidia/deepstream/deepstream/lib/libnvds_kafka_proto.so
+  # MQTT:   /opt/nvidia/deepstream/deepstream/lib/libnvds_mqtt_proto.so
+  # AMQP:   /opt/nvidia/deepstream/deepstream/lib/libnvds_amqp_proto.so
+  # Redis:  /opt/nvidia/deepstream/deepstream/lib/libnvds_redis_proto.so
+  # Azure:  /opt/nvidia/deepstream/deepstream/lib/libnvds_azure_proto.so
+  proto-lib: /opt/nvidia/deepstream/deepstream/lib/libnvds_kafka_proto.so
+  # Connection string format varies by protocol:
+  #   Kafka:  <broker-ip>;<port>
+  #   MQTT:   <host>;<port>
+  #   Redis:  <host>;<port>
+  #   AMQP:   <host>;<port>;<username>
+  conn-str: localhost;9092
+  # Topic name for publishing messages
+  topic: deepstream-detections
+  # Optional: protocol-specific config file
+  # config: /path/to/cfg_kafka.txt
+  # Optional: component ID for matching with nvmsgconv
+  # comp-id: 0
+
+# --- Message Converter (nvmsgconv) ---
+# Converts DeepStream metadata into JSON payloads for the broker
+msgconv:
+  # 0 = Full DeepStream schema (NvDsEventMsgMeta - detailed per-object)
+  # 1 = Minimal schema (NvDsFrameMeta/NvDsObjectMeta - compact multi-object)
+  payload-type: 1
+  # Optional: msgconv config file for static schema properties
+  # config: /path/to/dstest4_msgconv_config.txt
+  # Use new API (msg2p-newapi) for payload generation from buffer metadata
+  # "yes" = use nvds_msg2p_generate_new (works with payload-type: 1)
+  # "no"  = use nvds_msg2p_generate (works with payload-type: 0, needs NvDsEventMsgMeta)
+  msg2p-newapi: "yes"
