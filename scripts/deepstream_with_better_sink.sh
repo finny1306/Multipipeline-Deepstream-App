@@ -181,7 +181,7 @@ int main(int argc, char *argv[]) {
     guint bus_watch_id = 0;
 
     // for plugin type
-    NvDsGietype pgie_type = NVDS_GIE_PLUGIN_INFER;
+    NvDsGieType pgie_type = NVDS_GIE_PLUGIN_INFER;
     
     GstElement *tracker = NULL, *sgie1 = NULL, *sgie2 = NULL, *sgie3 = NULL, *sgie4 = NULL, *sgie5 = NULL;
     GstElement *payloader = NULL, *qtmux = NULL, *caps_filter = NULL;
@@ -192,7 +192,7 @@ int main(int argc, char *argv[]) {
     GstElement *msgconv = NULL, *msgbroker = NULL;
     
     // Feature Flags (Default False)
-    bool enable_tracker = false, 
+    bool enable_tracker = false;
     bool enable_sgie1 = false, enable_sgie2 = false, enable_sgie3 = false, enable_sgie4 = false, enable_sgie5 = false; 
     bool enable_preprocess = false;
     bool enable_tiler = false, enable_osd = false, enable_analytics = false;
@@ -210,7 +210,9 @@ int main(int argc, char *argv[]) {
     std::string msgbroker_cfg_file;
     std::string msgconv_config;
     std::string msgconv_msg2p_newapi;
-    int msgconv_payload_type = 0; // 0 = NVDS_EVENT_MSG_META, 1 = NVDS_FRAME_META
+
+    // 0 = NVDS_EVENT_MSG_META, 1 = NVDS_FRAME_META
+    int msgconv_payload_type = 0; 
     int msgbroker_comp_id = 0;
 
 
@@ -291,13 +293,11 @@ int main(int argc, char *argv[]) {
         server_cb.stream_cb = [&appctx](NvDsServerStreamInfo *stream_info, void *ctx){ s_stream_callback_impl(stream_info, (void*)&appctx); };
 
         // for ROI update
-        server_cb.roi_cb = [&appctx](NvDsServerRoiInfo *roi_info, void *ctx){
-         //do only id analytics enabled
-            if(!enable_analytics) {
-                g_print("ROI update callback received but analytics is disabled. Ignoring ROI update.\n");
-                return;
-            }
-         s_roi_callback_impl(roi_info, (void*)&appctx); };
+        // CAPTURE enable_analytics by value [=] or specifically [enable_analytics]
+        server_cb.roi_cb = [&appctx, enable_analytics](NvDsServerRoiInfo *roi_info, void *ctx){
+            if(!enable_analytics) return;
+            s_roi_callback_impl(roi_info, (void*)&appctx); 
+        };
 
         // Decoder tuning - drop frame interval, skip frames, and low latency mode
         server_cb.dec_cb = [&appctx](NvDsServerDecInfo *dec_info, void *ctx){ s_dec_callback_impl(dec_info, (void*)&appctx); };
@@ -317,14 +317,11 @@ int main(int argc, char *argv[]) {
         //Streammux property - batch-push-timeout, max latency
         server_cb.mux_cb = [&appctx](NvDsServerMuxInfo *mux_info, void *ctx){ s_mux_callback_impl(mux_info, (void*)&appctx); };
 
-        //osd property
-        server_cb.osd_cb = [&appctx](NvDsServerOsdInfo *osd_info, void *ctx){ 
-        // ignore if osd not enabled
-        if (!enable_osd) {
-            g_print("OSD callback received but osd is disabled. Ignoring OSD update.\n");
-            return;
-        }
-        s_osd_callback_impl(osd_info, (void*)&appctx); };
+        // CAPTURE enable_osd
+        server_cb.osd_cb = [&appctx, enable_osd](NvDsServerOsdInfo *osd_info, void *ctx){ 
+            if (!enable_osd) return;
+            s_osd_callback_impl(osd_info, (void*)&appctx); 
+        };
 
         // for app quit
         server_cb.appinstance_cb = [&appctx](NvDsServerAppInstanceInfo *appinstance_info, void *ctx){ s_appinstance_callback_impl(appinstance_info, (void*)&appctx); };
