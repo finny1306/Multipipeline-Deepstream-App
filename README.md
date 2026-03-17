@@ -33,6 +33,11 @@ docker compose down && docker compose up -d
 # create a venv for some python scipts
 ```bash
 python3 -m venv testenv
+
+# If using the grpc
+docker compose exec deepstream bash
+cd /workspace/model_repository
+tritonserver --model-repository=/workspace/model_repository --model-control-mode=poll --repository-poll-secs 30 --pinned-memory-pool-byte-size 1073741824 --cuda-memory-pool-byte-size 0:4294967296
 ```
 **Install additional libs and compile the app**
 ```bash
@@ -63,7 +68,7 @@ python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipip
 python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_20fps.mp4 -n 64 --mode 'srt-h264'
 
 #with 15 fps
-python3 /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_15fps.mp4 -n 1 --mode 'rtsp-h264'
+python3 /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_15fps.mp4 -n 80 --mode 'rtsp-h264'
 
 #with 10 fps
 python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipipeline-deepstream/test-media/sample_1080p_h264_10fps.mp4 -n 130 --mode 'rtsp-h264'
@@ -71,8 +76,7 @@ python /root/multipipeline-deepstream/scripts/stream_publisher.py /root/multipip
 
 **Terminal 2: DeepStream with REST API**
 ```bash
-cd /root/multipipeline-deepstream
-docker compose exec deepstream bash
+cd /root/multipipeline-deepstream && docker compose exec deepstream bash
 ```
 
 **Run the python manager**
@@ -89,8 +93,8 @@ python /workspace/manager_v2.py
 curl -X POST http://localhost:5000/pipelines/spawn \
 -H "Content-Type: application/json" \
 -d '{ 
-		"config_path": "/workspace/configs/config_person.yml", # place config here
-		"port": 9000   #change accordingly
+		"config_path": "/workspace/configs/config_benchmark1.yml", 
+		"port": 9000 
 		}'
 ```
 **To Delete One**
@@ -108,13 +112,13 @@ Simply ctrl + C in the python manager terminal.
 # Pipeline on port 9000, and localhost (change according to pipeline port)
 
 # Check health
-python rest_client.py --port 9000 health
+python rest_api_client.py --port 9000 health
 
 # List streams
-python rest_client.py --port 9000 list
+python rest_api_client.py --port 9000 list
 
 # Remote host
-python rest_client.py --host 192.168.1.50 --port 9001 list
+python rest_api_client.py --host 192.168.1.50 --port 9001 list
 
 # file stream:
 python3 rest_api_client.py --port 9000 add \
@@ -124,9 +128,9 @@ python3 rest_api_client.py --port 9000 add \
 
 # RTSP stream:
 python3 rest_api_client.py --port 9000 add \
-  --id cam0001 \
+  --id cam0001:branch=0 \
   --name "Front Door" \
-  --url rtsp://mediamtx:8554/stream1
+  --url rtsp://127.0.0.1:8554/stream1
 
 # Remove stream
 python3 rest_api_client.py --port 9000 remove --id cam001 --url rtsp://mediamtx:8554/stream1

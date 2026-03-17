@@ -31,19 +31,20 @@ def main():
     print("--- Starting Stream Addition Sequence ---")
 
     # 1. Add the First Stream (File Source)
-    print("Adding Initial File Stream (cam001)...")
+    
     base_cmd = ["python3", "rest_api_client.py", "add"]
     
-    if args.start_from == 1:
-        # only run if starting from 1
-        initial_args = [
-            "--id", "cam000",
-            "--name", "Front Door File",
-            "--url", "file:///workspace/test-media/sample_1080p_h264_15fps.mp4"
-        ]
-        run_command(base_cmd + initial_args)
+    # if args.start_from == 1:
+    #     print("Adding Initial File Stream (cam001)...")
+    #     # only run if starting from 1
+    #     initial_args = [
+    #         "--id", "cam000",
+    #         "--name", "Front Door File",
+    #         "--url", "file:///workspace/test-media/sample_1080p_h264_15fps.mp4"
+    #     ]
+    #     run_command(base_cmd + initial_args)
         
-        time.sleep(args.sleep_time)
+    #     time.sleep(args.sleep_time)
 
     # 2. Add RTSP Streams Loop
     if 'rtsp' in args.mode:
@@ -51,7 +52,7 @@ def main():
         for i in range(args.start_from, args.max_streams + 1):
             # Format ID: cam0001, cam0002...
             cam_id = f"cam{i:04d}"
-            stream_url = f"rtsp://mediamtx:8554/stream{i}"
+            stream_url = f"rtsp://172.17.0.1:8554/stream{i}"
             
             print(f"Adding RTSP Stream {i}/{args.max_streams} ({cam_id})...")
             

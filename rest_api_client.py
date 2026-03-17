@@ -13,7 +13,7 @@ from typing import Dict, Any
 
 
 class DeepStreamRESTClient:
-    def __init__(self, host: str = "localhost", port: int = 9002):
+    def __init__(self, host: str = "localhost", port: int = 9000):
         self.base_url = f"http://{host}:{port}"
         self.api_version = "v1"
 
@@ -61,11 +61,15 @@ class DeepStreamRESTClient:
                     "resolution": resolution,
                     "codec": codec,
                     "framerate": framerate,
+                    "select-rtp-protocol": 4
                 }
             },
             "headers": {
                 "source": "python_client",
-                "created_at": datetime.now(UTC).isoformat() + "Z"
+                "created_at": datetime.now(UTC).isoformat() 
+            },
+            "properties": {
+                "select-rtp-protocol": 4  
             }
         }
 
@@ -97,13 +101,11 @@ class DeepStreamRESTClient:
                 "interval": interval
             }
         }
-        try:
-            return self._make_request("POST", "/infer/set-interval", payload)
-        
-        except Exception as e:
-            print(f"Plugin type 'infer' not found, trying 'inferserver' endpoint: {e}")
-            return self._make_request("POST", "/inferserver/set-interval", payload)
-        
+        result = self._make_request("POST", "/infer/set-interval", payload)
+        if result is None:
+            result = self._make_request("POST", "/inferserver/set-interval", payload)
+        return result
+    
     # DECODER API
     def drop_frame_interval(self, stream_id: str, drop_interval: int) -> Dict:
         """Set frame drop interval for decoder"""
@@ -220,8 +222,8 @@ class DeepStreamRESTClient:
 def main():
     parser = argparse.ArgumentParser(description="DeepStream REST API Client")
     parser.add_argument("--host", default="localhost", help="Host address (default: localhost)")
-    parser.add_argument("--port", type=int, default=9002,
-                        help="Port of the pipeline to target (default: 9002)")
+    parser.add_argument("--port", type=int, default=9000,
+                        help="Port of the pipeline to target (default: 9000)")
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
@@ -236,8 +238,6 @@ def main():
     add_parser.add_argument("--id", required=True, help="Camera ID")
     add_parser.add_argument("--name", required=True, help="Camera name")
     add_parser.add_argument("--url", required=True, dest="stream_url", help="RTSP URL")
-    add_parser.add_argument("--protocol", default="tcp", choices=["tcp", "udp"],
-                            help="RTSP protocol (default: tcp)")
 
     # Remove stream
     remove_parser = subparsers.add_parser("remove", help="Remove a stream")
@@ -283,7 +283,7 @@ def main():
     # Update ROI
     roi_parser = subparsers.add_parser("roi", help="Update Region of Interest")
     roi_parser.add_argument("--stream", default="0", help="Stream ID")
-    roi_parser.add_argument("--roi", type=list, required=True,
+    roi_parser.add_argument("--roi", type=str, required=True,
                             help="""ROI list in format: [{
                                     "roi_id": "0", 
                                     "left": x1, 
@@ -308,8 +308,6 @@ def main():
     osd_parser = subparsers.add_parser("osd-mode", help="Change OSD process mode")
     osd_parser.add_argument("--stream", default="0", help="Stream ID")
     osd_parser.add_argument("--mode", type=int, choices=[0, 1], required=True, help="Process mode (0=CPU, 1=GPU)")
-    
-    parser.add_argument("-h", "--help", action="help", help="Show this help message and exit")
 
     args = parser.parse_args()
 
@@ -360,15 +358,16 @@ def main():
         print(json.dumps(result, indent=2))
 
     elif args.command == "mux-timeout":
-        result = client.set_mux_timeout(args.value)
+        result = client.set_batched_push_timeout(args.value)
         print(json.dumps(result, indent=2))
 
     elif args.command == "osd-mode":
-        result = client.set_osd_mode(args.stream, args.mode)
+        result = client.change_process_mode(args.stream, args.mode)
         print(json.dumps(result, indent=2))
         
     elif args.command == "roi":
-        result = client.update_roi(args.stream, args.roi)
+        rois = json.loads(args.roi)
+        result = client.update_roi(args.stream, rois)
         print(json.dumps(result, indent=2))
 
     else:

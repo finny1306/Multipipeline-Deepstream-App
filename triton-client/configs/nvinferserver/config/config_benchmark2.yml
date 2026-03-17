@@ -1,0 +1,69 @@
+# config_2.yml
+# v12: Demux-based parallel inference pipeline
+
+
+rest-server:
+  within_multiurisrcbin: 1
+
+server-app-ctx:
+  httpIp: "0.0.0.0"
+  httpPort: "9001"
+  pipeline_width: 1920
+  pipeline_height: 1080
+  maxBatchSize: 6
+  batched_push_timeout: 40000
+  live_source: 1
+  drop_pipeline_eos: 1
+
+dot-stream-count: 1
+
+multiurisrcbin:
+  port: 9001
+  live-source: 1
+  width: 1920
+  height: 1080
+  batched-push-timeout: 40000
+  max-batch-size: 6
+  disable-passthrough: 0
+  drop-pipeline-eos: 1
+
+demux:
+  max-pads: 6
+
+branch-streammux:
+  width: 1920
+  height: 1080
+  batched-push-timeout: 40000
+  batch-size: 6
+  num-surfaces-per-frame: 1
+
+primary-gie:
+  unique-id: 1
+  enable: 1
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_yolo11s.txt
+  batch-size: 2
+  interval: 0
+
+secondary-gie0:
+  unique-id: 2
+  enable: 1
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_ppe.txt
+  batch-size: 2
+  operate-on-gie-id: 1        # ← manager patches the .txt automatically
+  operate-on-class-ids: 0
+
+encoder:
+  enable: 1
+  codec: 1
+
+sink:
+  enable: 1
+  type: 0
+  output-file: "/workspace/test-media/p2_output_fixed_v2.mkv"
+  sync: 0
+  framerate: "24/1"
+  qos: 0
+  rtsp-port: 8555
+  udp-port: 5400

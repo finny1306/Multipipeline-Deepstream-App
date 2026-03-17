@@ -1,0 +1,115 @@
+
+rest-server:
+  within_multiurisrcbin: 1
+
+server-app-ctx:
+  httpIp: "0.0.0.0"
+  httpPort: "9002"
+  pipeline_width: 1920
+  pipeline_height: 1080
+  maxBatchSize: 6
+  batched_push_timeout: 40000
+  live_source: 1
+  drop_pipeline_eos: 1
+
+dot-stream-count: 1
+
+multiurisrcbin:
+  port: 9002
+  live-source: 1
+  width: 1920
+  height: 1080
+  batched-push-timeout: 40000
+  max-batch-size: 6
+  disable-passthrough: 0
+  drop-pipeline-eos: 1
+
+demux:
+  max-pads: 6
+
+branch-streammux:
+  width: 1920
+  height: 1080
+  batched-push-timeout: 40000
+  batch-size: 6
+  num-surfaces-per-frame: 1
+
+primary-gie0:
+  unique-id: 1
+  enable: 1
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_yolo11s.txt
+  batch-size: 6
+  interval: 0
+
+primary-gie1:
+  unique-id: 2
+  enable: 1
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_vc.txt
+  batch-size: 6
+  interval: 0
+
+primary-gie2:
+  unique-id: 3
+  enable: 1
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_vc.txt
+  batch-size: 6
+  interval: 0
+
+secondary-gie2-1:
+  unique-id: 4
+  enable: 1
+  plugin-type: 1
+  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_anpr.txt
+  batch-size: 6
+  operate-on-gie-id: 3        # ← manager patches the .txt automatically
+  operate-on-class-ids: 0
+
+preprocess:
+  enable: 0
+  config-file: config_preprocess.txt
+
+analytics:
+  enable: 0
+  config-file: /workspace/configs/nvinferserver/config_nvdsanalytics.txt
+
+tiler:
+  enable: 0
+  width: 1920
+  height: 1080
+  rows: 2
+  columns: 2
+
+osd:
+  enable: 0
+  process-mode: 1
+  display-text: 1
+  display-bbox: 1
+  display-mask: 0
+  gpu-id: 0
+
+encoder:
+  enable: 1
+  codec: 1
+
+sink:
+  enable: 1
+  type: 0
+  output-file: "/workspace/test-media/p2_output_fixed_v2.mkv"
+  sync: 0
+  framerate: "24/1"
+  qos: 0
+  rtsp-port: 8555
+  udp-port: 5400
+
+msgbroker:
+  enable: 0
+  proto-lib: /opt/nvidia/deepstream/deepstream/lib/libnvds_kafka_proto.so
+  conn-str: localhost;9092
+  topic: deepstream-detections
+
+msgconv:
+  payload-type: 1
+  msg2p-newapi: "yes"

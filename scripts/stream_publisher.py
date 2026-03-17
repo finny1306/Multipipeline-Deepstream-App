@@ -20,6 +20,22 @@ def publish(video_file, url_template, n, loop, mode):
                 '-rtsp_transport', 'tcp',
                 url
             ]
+        
+        # if mode == "rtsp-h264":
+        #     cmd = [
+        #         'ffmpeg', '-re',
+        #         '-loop', '1',           # loop the image
+        #         '-i', video_file,
+        #         '-c:v', 'libx264',
+        #         '-preset', 'ultrafast',
+        #         '-tune', 'zerolatency',
+        #         '-pix_fmt', 'yuv420p',
+        #         '-r', '5',             # output framerate
+        #         '-g', '10',             # keyframe every 2s
+        #         '-f', 'rtsp',
+        #         '-rtsp_transport', 'tcp',
+        #         url
+        #     ]
 
         elif mode == "rtsp-h265":
             cmd = [
