@@ -16,6 +16,7 @@ services:
     network_mode: host  
     volumes:
       - ./:/workspace
+      - ./triton-server/model_repository:/workspace/model_repository
     environment:
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video,graphics,display
     deploy:

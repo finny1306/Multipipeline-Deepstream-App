@@ -138,6 +138,393 @@ struct BranchFpsTracker {
 static BranchFpsTracker g_branch_fps;
 
 /* ═══════════════════════════════════════════════════════════════════════════
+ * Source Transform Injection — injects nvvideoconvert + capsfilter +
+ * videorate + capsfilter between each nvurisrcbin output and the internal
+ * nvstreammux inside nvmultiurisrcbin.
+ *
+ * Per NVIDIA guidance (forums.developer.nvidia.com/t/307167/3):
+ *   nvmultiurisrcbin is a GstBin containing nvurisrcbin + nvstreammux.
+ *   Use gst_bin_iterate_elements to find each src bin, then attach elements.
+ *   Ref: set_nvuribin_conv_prop in gst-nvmultiurisrcbincreator.cpp
+ *
+ * Injected chain (all optional — skipped if field is 0/empty):
+ *   nvurisrcbin.src → [nvvideoconvert → capsfilter(format,W,H)]
+ *                    → [videorate → capsfilter(framerate)]
+ *                    → internal_mux.sink_N
+ *
+ * For dynamic streams added via REST API, "deep-element-added" signal
+ * detects new nvurisrcbin elements and triggers a deferred re-scan.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+struct SourceTransformConfig {
+    bool enable = false;
+
+    /* Resolution — 0 means "pass through, don't force" */
+    int width = 0;
+    int height = 0;
+
+    /* Image format — empty means "pass through"
+     * Supported: RGBA, NV12, I420, BGRx, GRAY8 */
+    std::string format;
+
+    /* nvvideoconvert hw accel: 0=default, 1=GPU, 2=VIC (Jetson) */
+    int compute_hw = 1;
+    int gpu_id = 0;
+
+    /* FPS control — 0 means "don't inject videorate" */
+    int target_fps = 0;
+    bool drop_only = true;   /* Only drop frames, never duplicate */
+    int max_rate = 0;        /* 0 = same as target_fps */
+
+    /* Derived convenience flags */
+    bool needs_vidconv() const {
+        return (width > 0 && height > 0) || !format.empty();
+    }
+    bool needs_videorate() const {
+        return target_fps > 0;
+    }
+};
+
+static SourceTransformConfig g_src_transform;
+
+struct SourceTransformCtx {
+    std::mutex mtx;
+    std::set<std::string> injected_pads;   /* mux sink pad names already injected */
+    GstElement *source_bin = nullptr;      /* the nvmultiurisrcbin GstBin */
+    GstElement *internal_mux = nullptr;    /* the internal nvstreammux (cached) */
+    int injection_counter = 0;             /* unique names for injected elements */
+};
+
+static SourceTransformCtx g_st_ctx;
+
+/* ── find_internal_nvstreammux ──
+ * Recursively iterate a GstBin to find the first element whose factory
+ * name is "nvstreammux". Returns ref'd element (caller must unref). */
+static GstElement* find_internal_nvstreammux(GstBin *bin) {
+    GstIterator *it = gst_bin_iterate_recurse(bin);
+    GValue item = G_VALUE_INIT;
+    GstElement *found = nullptr;
+
+    while (gst_iterator_next(it, &item) == GST_ITERATOR_OK) {
+        GstElement *elem = GST_ELEMENT(g_value_get_object(&item));
+        GstElementFactory *factory = gst_element_get_factory(elem);
+        if (factory) {
+            const gchar *fname = gst_plugin_feature_get_name(GST_PLUGIN_FEATURE(factory));
+            if (fname && g_strcmp0(fname, "nvstreammux") == 0) {
+                found = (GstElement *)gst_object_ref(elem);
+                g_value_unset(&item);
+                break;
+            }
+        }
+        g_value_unset(&item);
+    }
+    gst_iterator_free(it);
+    return found;
+}
+
+/* ── BlockProbeInjectCtx ──
+ * Passed to the blocking probe that does the actual unlink + inject + relink.
+ * The probe fires on the nvurisrcbin's ghost src pad, blocking data flow
+ * so we can safely splice the transform chain into the path. */
+struct BlockProbeInjectCtx {
+    GstPad *upstream_src;    /* nvurisrcbin ghost src (blocked pad) */
+    GstPad *mux_sink;        /* internal nvstreammux sink_N */
+    GstElement *parent_bin;  /* the nvmultiurisrcbin — we add elements here */
+    int inject_id;           /* unique ID for naming elements */
+};
+
+static GstPadProbeReturn
+source_transform_block_probe_cb(GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
+{
+    BlockProbeInjectCtx *ctx = (BlockProbeInjectCtx *)user_data;
+    const SourceTransformConfig &cfg = g_src_transform;
+
+    g_print("[SourceTransform] Blocked pad '%s', injecting transform chain (id=%d)...\n",
+            GST_PAD_NAME(pad), ctx->inject_id);
+
+    /* 1. Unlink: nvurisrcbin.src -X-> mux.sink_N */
+    gst_pad_unlink(ctx->upstream_src, ctx->mux_sink);
+
+    /* ── Collect all elements to inject ──
+     * Chain order: nvvideoconvert → format_caps → videorate → fps_caps
+     * Each segment is optional. */
+    std::vector<GstElement*> chain_elements;
+    char name_buf[64];
+
+    /* ── Segment A: nvvideoconvert + format/resolution capsfilter ── */
+    GstElement *vidconv = nullptr;
+    GstElement *fmt_caps = nullptr;
+
+    if (cfg.needs_vidconv()) {
+        snprintf(name_buf, sizeof(name_buf), "src_nvvidconv_%d", ctx->inject_id);
+        vidconv = gst_element_factory_make("nvvideoconvert", name_buf);
+        if (!vidconv) {
+            g_printerr("[SourceTransform] ERROR: Failed to create nvvideoconvert (id=%d)\n",
+                        ctx->inject_id);
+            gst_pad_link(ctx->upstream_src, ctx->mux_sink);
+            delete ctx;
+            return GST_PAD_PROBE_REMOVE;
+        }
+        g_object_set(G_OBJECT(vidconv),
+            "compute-hw", cfg.compute_hw,
+            "gpu-id",     cfg.gpu_id,
+            NULL);
+        chain_elements.push_back(vidconv);
+
+        /* Build caps string for format + resolution */
+        snprintf(name_buf, sizeof(name_buf), "src_fmt_caps_%d", ctx->inject_id);
+        fmt_caps = gst_element_factory_make("capsfilter", name_buf);
+        if (!fmt_caps) {
+            g_printerr("[SourceTransform] ERROR: Failed to create format capsfilter (id=%d)\n",
+                        ctx->inject_id);
+            gst_pad_link(ctx->upstream_src, ctx->mux_sink);
+            delete ctx;
+            return GST_PAD_PROBE_REMOVE;
+        }
+
+        std::string caps_str = "video/x-raw(memory:NVMM)";
+        if (!cfg.format.empty()) {
+            caps_str += ", format=(string)" + cfg.format;
+        }
+        if (cfg.width > 0 && cfg.height > 0) {
+            caps_str += ", width=(int)" + std::to_string(cfg.width)
+                      + ", height=(int)" + std::to_string(cfg.height);
+        }
+
+        GstCaps *caps = gst_caps_from_string(caps_str.c_str());
+        g_object_set(G_OBJECT(fmt_caps), "caps", caps, NULL);
+        gst_caps_unref(caps);
+        chain_elements.push_back(fmt_caps);
+
+        g_print("[SourceTransform]   nvvideoconvert → capsfilter(%s) (id=%d)\n",
+                caps_str.c_str(), ctx->inject_id);
+    }
+
+    /* ── Segment B: videorate + FPS capsfilter ── */
+    GstElement *videorate = nullptr;
+    GstElement *fps_caps = nullptr;
+
+    if (cfg.needs_videorate()) {
+        snprintf(name_buf, sizeof(name_buf), "src_videorate_%d", ctx->inject_id);
+        videorate = gst_element_factory_make("videorate", name_buf);
+        if (!videorate) {
+            g_printerr("[SourceTransform] ERROR: Failed to create videorate (id=%d)\n",
+                        ctx->inject_id);
+            gst_pad_link(ctx->upstream_src, ctx->mux_sink);
+            delete ctx;
+            return GST_PAD_PROBE_REMOVE;
+        }
+        g_object_set(G_OBJECT(videorate),
+            "drop-only", (gboolean)cfg.drop_only,
+            "max-rate",  (gint)(cfg.max_rate > 0 ? cfg.max_rate : cfg.target_fps),
+            NULL);
+        chain_elements.push_back(videorate);
+
+        snprintf(name_buf, sizeof(name_buf), "src_fps_caps_%d", ctx->inject_id);
+        fps_caps = gst_element_factory_make("capsfilter", name_buf);
+        if (!fps_caps) {
+            g_printerr("[SourceTransform] ERROR: Failed to create fps capsfilter (id=%d)\n",
+                        ctx->inject_id);
+            gst_pad_link(ctx->upstream_src, ctx->mux_sink);
+            delete ctx;
+            return GST_PAD_PROBE_REMOVE;
+        }
+
+        char fps_caps_str[128];
+        snprintf(fps_caps_str, sizeof(fps_caps_str),
+                 "video/x-raw(memory:NVMM), framerate=%d/1", cfg.target_fps);
+        GstCaps *fcaps = gst_caps_from_string(fps_caps_str);
+        g_object_set(G_OBJECT(fps_caps), "caps", fcaps, NULL);
+        gst_caps_unref(fcaps);
+        chain_elements.push_back(fps_caps);
+
+        g_print("[SourceTransform]   videorate(drop-only=%d) → capsfilter(%s) (id=%d)\n",
+                cfg.drop_only, fps_caps_str, ctx->inject_id);
+    }
+
+    if (chain_elements.empty()) {
+        g_print("[SourceTransform] Nothing to inject (id=%d), re-linking original\n",
+                ctx->inject_id);
+        gst_pad_link(ctx->upstream_src, ctx->mux_sink);
+        delete ctx;
+        return GST_PAD_PROBE_REMOVE;
+    }
+
+    /* 2. Add all elements to the parent bin and sync state */
+    for (auto *elem : chain_elements) {
+        gst_bin_add(GST_BIN(ctx->parent_bin), elem);
+        gst_element_sync_state_with_parent(elem);
+    }
+
+    /* 3. Link the chain: elem[0] → elem[1] → ... → elem[N-1] */
+    for (size_t i = 0; i + 1 < chain_elements.size(); i++) {
+        if (!gst_element_link(chain_elements[i], chain_elements[i + 1])) {
+            g_printerr("[SourceTransform] ERROR: chain link failed at index %d (id=%d)\n",
+                        (int)i, ctx->inject_id);
+            gst_pad_link(ctx->upstream_src, ctx->mux_sink);
+            delete ctx;
+            return GST_PAD_PROBE_REMOVE;
+        }
+    }
+
+    /* 4. Link: upstream_src → chain[0].sink */
+    GstPad *first_sink = gst_element_get_static_pad(chain_elements.front(), "sink");
+    GstPadLinkReturn lr1 = gst_pad_link(ctx->upstream_src, first_sink);
+    gst_object_unref(first_sink);
+
+    /* 5. Link: chain[N-1].src → mux_sink */
+    GstPad *last_src = gst_element_get_static_pad(chain_elements.back(), "src");
+    GstPadLinkReturn lr2 = gst_pad_link(last_src, ctx->mux_sink);
+    gst_object_unref(last_src);
+
+    if (lr1 == GST_PAD_LINK_OK && lr2 == GST_PAD_LINK_OK) {
+        g_print("[SourceTransform] SUCCESS: injected %d element(s) on mux pad '%s' (id=%d)\n",
+                (int)chain_elements.size(), GST_PAD_NAME(ctx->mux_sink), ctx->inject_id);
+    } else {
+        g_printerr("[SourceTransform] ERROR: re-link failed lr1=%d lr2=%d (id=%d)\n",
+                    lr1, lr2, ctx->inject_id);
+    }
+
+    delete ctx;
+    return GST_PAD_PROBE_REMOVE;  /* Unblock — data flows through new path */
+}
+
+/* ── source_transform_scan_and_inject ──
+ * Scans the internal nvstreammux inside the source bin.
+ * For each linked sink pad that hasn't been injected yet,
+ * installs a blocking probe that does the splicing.
+ * Called from main loop thread (g_idle_add / g_timeout_add). */
+static gboolean source_transform_scan_and_inject(gpointer user_data) {
+    if (!g_src_transform.enable) return G_SOURCE_REMOVE;
+
+    std::lock_guard<std::mutex> lock(g_st_ctx.mtx);
+
+    /* Find the internal nvstreammux if not cached */
+    if (!g_st_ctx.internal_mux && g_st_ctx.source_bin) {
+        g_st_ctx.internal_mux = find_internal_nvstreammux(
+            GST_BIN(g_st_ctx.source_bin));
+        if (g_st_ctx.internal_mux) {
+            gchar *mux_name = gst_element_get_name(g_st_ctx.internal_mux);
+            g_print("[SourceTransform] Found internal nvstreammux: '%s'\n", mux_name);
+            g_free(mux_name);
+        } else {
+            g_print("[SourceTransform] Internal nvstreammux not found yet, will retry...\n");
+            return G_SOURCE_REMOVE;
+        }
+    }
+
+    if (!g_st_ctx.internal_mux) return G_SOURCE_REMOVE;
+
+    /* Iterate all sink pads on the internal mux */
+    GstIterator *pad_it = gst_element_iterate_sink_pads(g_st_ctx.internal_mux);
+    GValue pad_val = G_VALUE_INIT;
+    int injected_count = 0;
+
+    while (gst_iterator_next(pad_it, &pad_val) == GST_ITERATOR_OK) {
+        GstPad *mux_sink = GST_PAD(g_value_get_object(&pad_val));
+        const gchar *pad_name = GST_PAD_NAME(mux_sink);
+
+        /* Skip already-injected pads */
+        if (g_st_ctx.injected_pads.count(pad_name)) {
+            g_value_unset(&pad_val);
+            continue;
+        }
+
+        /* Check if this pad is linked */
+        GstPad *peer = gst_pad_get_peer(mux_sink);
+        if (!peer) {
+            g_value_unset(&pad_val);
+            continue;
+        }
+
+        /* Check: is there already an injected element upstream?
+         * (Avoid double-injection if scan is called multiple times) */
+        GstElement *peer_parent = gst_pad_get_parent_element(peer);
+        if (peer_parent) {
+            GstElementFactory *pf = gst_element_get_factory(peer_parent);
+            if (pf) {
+                const gchar *pfn = gst_plugin_feature_get_name(GST_PLUGIN_FEATURE(pf));
+                if (pfn && (g_strcmp0(pfn, "capsfilter") == 0 ||
+                            g_strcmp0(pfn, "nvvideoconvert") == 0)) {
+                    g_print("[SourceTransform] Pad '%s' appears already injected, skipping\n",
+                            pad_name);
+                    g_st_ctx.injected_pads.insert(pad_name);
+                    gst_object_unref(peer_parent);
+                    gst_object_unref(peer);
+                    g_value_unset(&pad_val);
+                    continue;
+                }
+            }
+            gst_object_unref(peer_parent);
+        }
+
+        /* Determine the parent bin to add elements into.
+         * We walk up from the internal mux to find the nvmultiurisrcbin. */
+        GstElement *parent_bin = GST_ELEMENT(gst_element_get_parent(g_st_ctx.internal_mux));
+        if (!parent_bin) {
+            g_printerr("[SourceTransform] ERROR: Cannot find parent bin of internal mux\n");
+            gst_object_unref(peer);
+            g_value_unset(&pad_val);
+            continue;
+        }
+
+        /* Install blocking probe on the upstream src pad */
+        BlockProbeInjectCtx *bctx = new BlockProbeInjectCtx();
+        bctx->upstream_src = peer;         /* takes ownership of ref */
+        bctx->mux_sink = (GstPad *)gst_object_ref(mux_sink);
+        bctx->parent_bin = parent_bin;     /* takes ownership of ref */
+        bctx->inject_id = g_st_ctx.injection_counter++;
+
+        gst_pad_add_probe(peer, GST_PAD_PROBE_TYPE_BLOCK_DOWNSTREAM,
+                          source_transform_block_probe_cb, bctx, NULL);
+
+        g_st_ctx.injected_pads.insert(pad_name);
+        injected_count++;
+
+        g_print("[SourceTransform] Scheduled injection on mux pad '%s' (id=%d)\n",
+                pad_name, bctx->inject_id);
+
+        g_value_unset(&pad_val);
+    }
+    gst_iterator_free(pad_it);
+
+    if (injected_count > 0) {
+        g_print("[SourceTransform] Scheduled %d injection(s) this scan\n", injected_count);
+    }
+
+    return G_SOURCE_REMOVE;
+}
+
+/* ── source_transform_deep_element_added_cb ──
+ * Connected on the source bin. When nvmultiurisrcbin internally creates
+ * a new nvurisrcbin (dynamic stream via REST API), this fires.
+ * We schedule a deferred re-scan to inject the transform chain on the
+ * new connection. */
+static void
+source_transform_deep_element_added_cb(GstBin *bin, GstBin *sub_bin,
+                                       GstElement *element, gpointer user_data)
+{
+    if (!g_src_transform.enable) return;
+
+    GstElementFactory *factory = gst_element_get_factory(element);
+    if (!factory) return;
+
+    const gchar *fname = gst_plugin_feature_get_name(GST_PLUGIN_FEATURE(factory));
+    if (!fname) return;
+
+    /* Detect nvurisrcbin additions → new stream added */
+    if (g_str_has_prefix(fname, "nvurisrcbin")) {
+        gchar *elem_name = gst_element_get_name(element);
+        g_print("[SourceTransform] Detected new nvurisrcbin: '%s', "
+                "scheduling deferred transform injection...\n", elem_name);
+        g_free(elem_name);
+
+        /* Defer by 500ms to allow internal linking to complete.
+         * nvmultiurisrcbin links nvurisrcbin→nvstreammux asynchronously. */
+        g_timeout_add(500, source_transform_scan_and_inject, NULL);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
  * ParallelBranch — one inference branch with its own demux + streammux
  * v12: Each branch has its own nvstreamdemux (tee copies to all branches)
  * ═══════════════════════════════════════════════════════════════════════════ */
@@ -516,6 +903,7 @@ int main(int argc, char *argv[]) {
 
     NvDsGieType pgie_type = NVDS_GIE_PLUGIN_INFER;
 
+    GstElement *pgie = NULL;
     GstElement *tracker = NULL, *sgie1 = NULL, *sgie2 = NULL, *sgie3 = NULL, *sgie4 = NULL, *sgie5 = NULL;
     GstElement *payloader = NULL, *qtmux = NULL, *caps_filter = NULL;
     GstRTSPServer *rtsp_server = NULL;
@@ -539,6 +927,7 @@ int main(int argc, char *argv[]) {
     GstElement *msgconv = NULL, *msgbroker = NULL;
 
     /* Feature Flags (Default False) */
+    bool enable_pgie = false;
     bool enable_tracker = false;
     bool enable_sgie1 = false, enable_sgie2 = false, enable_sgie3 = false, enable_sgie4 = false, enable_sgie5 = false;
     bool enable_preprocess = false;
@@ -587,6 +976,7 @@ int main(int argc, char *argv[]) {
             if (config["tiler"]["rows"]) row = config["tiler"]["rows"].as<int>();
             if (config["tiler"]["columns"]) col = config["tiler"]["columns"].as<int>();
         }
+        if (config["primary-gie"] && config["primary-gie"]["enable"]) enable_pgie = config["primary-gie"]["enable"].as<int>() == 1;
         if (config["osd"] && config["osd"]["enable"]) enable_osd = config["osd"]["enable"].as<int>() == 1;
         if (config["tracker"] && config["tracker"]["enable"]) enable_tracker = config["tracker"]["enable"].as<int>() == 1;
         if (config["secondary-gie1"] && config["secondary-gie1"]["enable"]) enable_sgie1 = config["secondary-gie1"]["enable"].as<int>() == 1;
@@ -621,6 +1011,20 @@ int main(int argc, char *argv[]) {
             if (bm["height"])               branch_mux_height        = bm["height"].as<int>();
             if (bm["batched-push-timeout"]) branch_mux_batch_timeout = bm["batched-push-timeout"].as<int>();
             if (bm["batch-size"])           branch_mux_batch_size    = bm["batch-size"].as<int>();
+        }
+
+        /* Source Transform config — per-source resolution, format, FPS */
+        if (config["source-transform"]) {
+            auto st = config["source-transform"];
+            if (st["enable"])     g_src_transform.enable     = st["enable"].as<int>() == 1;
+            if (st["width"])      g_src_transform.width      = st["width"].as<int>();
+            if (st["height"])     g_src_transform.height     = st["height"].as<int>();
+            if (st["format"])     g_src_transform.format     = st["format"].as<std::string>();
+            if (st["compute-hw"]) g_src_transform.compute_hw = st["compute-hw"].as<int>();
+            if (st["gpu-id"])     g_src_transform.gpu_id     = st["gpu-id"].as<int>();
+            if (st["target-fps"]) g_src_transform.target_fps = st["target-fps"].as<int>();
+            if (st["drop-only"])  g_src_transform.drop_only  = st["drop-only"].as<int>() == 1;
+            if (st["max-rate"])   g_src_transform.max_rate   = st["max-rate"].as<int>();
         }
 
         nvds_parse_codec_status(argv[1], "encoder", &codec_status);
@@ -694,6 +1098,21 @@ int main(int argc, char *argv[]) {
         g_print("Width: %d, Height: %d, BatchSize: %d, Timeout: %d\n",
                 branch_mux_width, branch_mux_height, branch_mux_batch_size, branch_mux_batch_timeout);
         g_print("================================\n\n");
+    }
+    if (g_src_transform.enable) {
+        g_print("=== SOURCE TRANSFORM CONFIGURATION ===\n");
+        if (g_src_transform.needs_vidconv()) {
+            g_print("  Resolution: %dx%d | Format: %s | GPU: %d | Compute-HW: %d\n",
+                    g_src_transform.width, g_src_transform.height,
+                    g_src_transform.format.empty() ? "(passthrough)" : g_src_transform.format.c_str(),
+                    g_src_transform.gpu_id, g_src_transform.compute_hw);
+        }
+        if (g_src_transform.needs_videorate()) {
+            g_print("  Target FPS: %d | Drop-Only: %d | Max-Rate: %d\n",
+                    g_src_transform.target_fps, g_src_transform.drop_only,
+                    g_src_transform.max_rate > 0 ? g_src_transform.max_rate : g_src_transform.target_fps);
+        }
+        g_print("======================================\n\n");
     }
 
     setenv("GST_DEBUG_DUMP_DOT_DIR", "./tmp", 1);
@@ -785,14 +1204,28 @@ int main(int argc, char *argv[]) {
         gst_bin_add(GST_BIN(appctx.pipeline), appctx.multiuribin);
     }
 
+    /* 1b. Source Transform injection setup — watch for internal nvurisrcbin additions */
+    if (g_src_transform.enable) {
+        GstElement *source_bin = appctx.restServer
+            ? gst_nvmultiurisrcbincreator_get_bin(appctx.nvmultiurisrcbinCreator)
+            : appctx.multiuribin;
+
+        g_st_ctx.source_bin = source_bin;
+        g_signal_connect(GST_BIN(source_bin), "deep-element-added",
+                         G_CALLBACK(source_transform_deep_element_added_cb), NULL);
+        g_print("[SourceTransform] Watching source bin '%s' for dynamic stream additions\n",
+                GST_ELEMENT_NAME(source_bin));
+    }
+
     /* 2. Core Elements */
     if (!parallel_mode) {
+        if (enable_pgie) {
         if (pgie_type == NVDS_GIE_PLUGIN_INFER_SERVER)
             appctx.pgie = gst_element_factory_make("nvinferserver", "primary-nvinference-engine");
         else
             appctx.pgie = gst_element_factory_make("nvinfer", "primary-nvinference-engine");
         nvds_parse_gie(appctx.pgie, argv[1], "primary-gie");
-    }
+    }}
 
     appctx.nvdslogger = gst_element_factory_make("nvdslogger", "nvdslogger");
     g_object_set(G_OBJECT(appctx.nvdslogger), "fps-measurement-interval-sec", 3, NULL);
@@ -1098,7 +1531,7 @@ int main(int argc, char *argv[]) {
          * LINEAR MODE
          * ═══════════════════════════════════════════════════════════════ */
         if (enable_preprocess) link_next(appctx.preprocess, "preproc");
-        link_next(appctx.pgie, "pgie");
+        if (enable_pgie) link_next(appctx.pgie, "pgie");
         if (enable_tracker) link_next(tracker, "tracker");
         if (enable_sgie1) link_next(sgie1, "sgie1");
         if (enable_sgie2) link_next(sgie2, "sgie2");
@@ -1163,6 +1596,14 @@ int main(int argc, char *argv[]) {
             parallel_mode ? max_demux_pads : 0);
     gst_element_set_state(appctx.pipeline, GST_STATE_PLAYING);
 
+    /* Source Transform: schedule initial scan after pipeline is PLAYING.
+     * Delay 2s to let nvmultiurisrcbin create internal nvurisrcbin
+     * elements and link them to its internal nvstreammux. */
+    if (g_src_transform.enable) {
+        g_timeout_add(2000, source_transform_scan_and_inject, NULL);
+        g_print("[SourceTransform] Initial injection scan scheduled in 2s\n");
+    }
+
     GST_DEBUG_BIN_TO_DOT_FILE(GST_BIN(appctx.pipeline), GST_DEBUG_GRAPH_SHOW_ALL, "deepstream-pipeline");
     g_print("Pipeline DOT file written to ./tmp/deepstream-pipeline.dot\n");
 
@@ -1204,6 +1645,7 @@ int main(int argc, char *argv[]) {
 done:
     g_print("Returned, stopping pipeline...\n");
     if (probe_ctx) { delete probe_ctx; probe_ctx = nullptr; }
+    if (g_st_ctx.internal_mux) { gst_object_unref(g_st_ctx.internal_mux); g_st_ctx.internal_mux = nullptr; }
     if (rtsp_server) { g_object_unref(rtsp_server); rtsp_server = NULL; }
     gst_element_set_state(appctx.pipeline, GST_STATE_NULL);
     gst_object_unref(GST_OBJECT(appctx.pipeline));

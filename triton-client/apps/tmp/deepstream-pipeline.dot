@@ -1,0 +1,200 @@
+digraph pipeline {
+  rankdir=LR;
+  fontname="sans";
+  fontsize="10";
+  labelloc=t;
+  nodesep=.1;
+  ranksep=.2;
+  label="<GstPipeline>\ndsserver-pipeline\n[>]";
+  node [style="filled,rounded", shape=box, fontsize="9", fontname="sans", margin="0.0,0.0"];
+  edge [labelfontsize="6", fontsize="9", fontname="monospace"];
+  
+  legend [
+    pos="0,0!",
+    margin="0.05,0.05",
+    style="filled",
+    label="Legend\lElement-States: [~] void-pending, [0] null, [-] ready, [=] paused, [>] playing\lPad-Activation: [-] none, [>] push, [<] pull\lPad-Flags: [b]locked, [f]lushing, [b]locking, [E]OS; upper-case is set\lPad-Task: [T] has started task, [t] has paused task\l",
+  ];
+  subgraph cluster_queue_sink_2_0x57172c401920 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstQueue\nqueue-sink-2\n[>]\nmax-size-buffers=10\nmax-size-bytes=0\nmax-size-time=0\nleaky=downstream";
+    subgraph cluster_queue_sink_2_0x57172c401920_sink {
+      label="";
+      style="invis";
+      queue_sink_2_0x57172c401920_sink_0x57172c4015d0 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_queue_sink_2_0x57172c401920_src {
+      label="";
+      style="invis";
+      queue_sink_2_0x57172c401920_src_0x57172c4007c0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    queue_sink_2_0x57172c401920_sink_0x57172c4015d0 -> queue_sink_2_0x57172c401920_src_0x57172c4007c0 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  queue_sink_2_0x57172c401920_src_0x57172c4007c0 -> fakesink_0x57172c3f8cb0_sink_0x57172c3f9000 [label="ANY"]
+  subgraph cluster_queue_conv_1_0x57172c3fdb10 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstQueue\nqueue-conv-1\n[>]\nmax-size-buffers=10\nmax-size-bytes=0\nmax-size-time=0";
+    subgraph cluster_queue_conv_1_0x57172c3fdb10_sink {
+      label="";
+      style="invis";
+      queue_conv_1_0x57172c3fdb10_sink_0x57172c3fde60 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_queue_conv_1_0x57172c3fdb10_src {
+      label="";
+      style="invis";
+      queue_conv_1_0x57172c3fdb10_src_0x57172c3fe0f0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    queue_conv_1_0x57172c3fdb10_sink_0x57172c3fde60 -> queue_conv_1_0x57172c3fdb10_src_0x57172c3fe0f0 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  queue_conv_1_0x57172c3fdb10_src_0x57172c3fe0f0 -> nvvideo_converter_0x57172c3f2b50_sink_0x57172c3f30a0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="ANY", headlabel="video/x-raw(memory:NVMM)\l              format: { (string)I420, (str... }\l               width: [ 1, 2147483647 ]\l              height: [ 1, 2147483647 ]\l           framerate: [ 0/1, 2147483647/1 ]\lvideo/x-raw\l              format: { (string)I420, (str... }\l               width: [ 1, 2147483647 ]\l              height: [ 1, 2147483647 ]\l           framerate: [ 0/1, 2147483647/1 ]\l"]
+  subgraph cluster_queue_logger_0_0x57172c3fa830 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstQueue\nqueue-logger-0\n[>]\nmax-size-buffers=10\nmax-size-bytes=0\nmax-size-time=0";
+    subgraph cluster_queue_logger_0_0x57172c3fa830_sink {
+      label="";
+      style="invis";
+      queue_logger_0_0x57172c3fa830_sink_0x57172c3facd0 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_queue_logger_0_0x57172c3fa830_src {
+      label="";
+      style="invis";
+      queue_logger_0_0x57172c3fa830_src_0x57172c3fb0c0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb][T]", height="0.2", style="filled,solid"];
+    }
+
+    queue_logger_0_0x57172c3fa830_sink_0x57172c3facd0 -> queue_logger_0_0x57172c3fa830_src_0x57172c3fb0c0 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  queue_logger_0_0x57172c3fa830_src_0x57172c3fb0c0 -> nvdslogger_0x57172bfe24f0_sink_0x57172c289000 [label="ANY"]
+  subgraph cluster_fakesink_0x57172c3f8cb0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstFakeSink\nfakesink\n[>]\nsync=FALSE\nasync=FALSE";
+    subgraph cluster_fakesink_0x57172c3f8cb0_sink {
+      label="";
+      style="invis";
+      fakesink_0x57172c3f8cb0_sink_0x57172c3f9000 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#aaaaff";
+  }
+
+  subgraph cluster_nvvideo_converter_0x57172c3f2b50 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="Gstnvvideoconvert\nnvvideo-converter\n[>]\nsrc-crop=\"0:0:0:0\"\ndest-crop=\"0:0:0:0\"\ncompute-hw=GPU\nnvbuf-memory-type=nvbuf-mem-cuda-device";
+    subgraph cluster_nvvideo_converter_0x57172c3f2b50_sink {
+      label="";
+      style="invis";
+      nvvideo_converter_0x57172c3f2b50_sink_0x57172c3f30a0 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_nvvideo_converter_0x57172c3f2b50_src {
+      label="";
+      style="invis";
+      nvvideo_converter_0x57172c3f2b50_src_0x57172c3f33b0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    nvvideo_converter_0x57172c3f2b50_sink_0x57172c3f30a0 -> nvvideo_converter_0x57172c3f2b50_src_0x57172c3f33b0 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  nvvideo_converter_0x57172c3f2b50_src_0x57172c3f33b0 -> queue_sink_2_0x57172c401920_sink_0x57172c4015d0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="video/x-raw(memory:NVMM)\l              format: { (string)I420, (str... }\l               width: [ 1, 2147483647 ]\l              height: [ 1, 2147483647 ]\l           framerate: [ 0/1, 2147483647/1 ]\lvideo/x-raw\l              format: { (string)I420, (str... }\l               width: [ 1, 2147483647 ]\l              height: [ 1, 2147483647 ]\l           framerate: [ 0/1, 2147483647/1 ]\l", headlabel="ANY"]
+  subgraph cluster_nvdslogger_0x57172bfe24f0 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstNvdslogger\nnvdslogger\n[>]\nfps-measurement-interval-sec=3";
+    subgraph cluster_nvdslogger_0x57172bfe24f0_sink {
+      label="";
+      style="invis";
+      nvdslogger_0x57172bfe24f0_sink_0x57172c289000 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    subgraph cluster_nvdslogger_0x57172bfe24f0_src {
+      label="";
+      style="invis";
+      nvdslogger_0x57172bfe24f0_src_0x57172c286eb0 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    nvdslogger_0x57172bfe24f0_sink_0x57172c289000 -> nvdslogger_0x57172bfe24f0_src_0x57172c286eb0 [style="invis"];
+    fillcolor="#aaffaa";
+  }
+
+  nvdslogger_0x57172bfe24f0_src_0x57172c286eb0 -> queue_conv_1_0x57172c3fdb10_sink_0x57172c3fde60 [label="ANY"]
+  subgraph cluster_multiuribin_0x57172c27fe80 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style="filled,rounded";
+    color=black;
+    label="GstDsNvMultiUriBin\nmultiuribin\n[>]\nasync-handling=TRUE\nport=\"9001\"\nmax-batch-size=6\nsmart-rec-file-prefix=NULL\nsmart-rec-video-cache=0\nsmart-rec-cache=0\nsmart-rec-default-duration=0\nbatched-push-timeout=40000\nwidth=1920\nheight=1080\nlive-source=TRUE\nnum-surfaces-per-frame=0\nbuffer-pool-size=0\ndrop-pipeline-eos=TRUE";
+    subgraph cluster_multiuribin_0x57172c27fe80_src {
+      label="";
+      style="invis";
+      _proxypad0_0x57172c280e50 [color=black, fillcolor="#ffdddd", label="proxypad0\n[>][bfb]", height="0.2", style="filled,solid"];
+    _proxypad0_0x57172c280e50 -> multiuribin_0x57172c27fe80_src_0x57172c280b20 [style=dashed, minlen=0]
+      multiuribin_0x57172c27fe80_src_0x57172c280b20 [color=black, fillcolor="#ffdddd", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+    }
+
+    fillcolor="#ffffff";
+    subgraph cluster_multiuribin_creator_0x57172c4094a0 {
+      fontname="Bitstream Vera Sans";
+      fontsize="8";
+      style="filled,rounded";
+      color=black;
+      label="GstBin\nmultiuribin_creator\n[>]\nasync-handling=TRUE";
+      subgraph cluster_multiuribin_creator_0x57172c4094a0_src {
+        label="";
+        style="invis";
+        _proxypad1_0x57172c409bd0 [color=black, fillcolor="#ffdddd", label="proxypad1\n[>][bfb]", height="0.2", style="filled,solid"];
+      _proxypad1_0x57172c409bd0 -> multiuribin_creator_0x57172c4094a0_src_0x57172c409850 [style=dashed, minlen=0]
+        multiuribin_creator_0x57172c4094a0_src_0x57172c409850 [color=black, fillcolor="#ffdddd", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+      }
+
+      fillcolor="#ffffff";
+      subgraph cluster_src_bin_muxer_0x57172c4088e0 {
+        fontname="Bitstream Vera Sans";
+        fontsize="8";
+        style="filled,rounded";
+        color=black;
+        label="GstNvStreamMux\nsrc_bin_muxer\n[>]\nbatch-size=6\nbatched-push-timeout=40000\nwidth=1920\nheight=1080\nlive-source=TRUE\nnvbuf-memory-type=nvbuf-mem-cuda-device\nframe-duration=18446744073709\ndrop-pipeline-eos=TRUE";
+        subgraph cluster_src_bin_muxer_0x57172c4088e0_src {
+          label="";
+          style="invis";
+          src_bin_muxer_0x57172c4088e0_src_0x57172c408e70 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfb]", height="0.2", style="filled,solid"];
+        }
+
+        fillcolor="#ffaaaa";
+      }
+
+      src_bin_muxer_0x57172c4088e0_src_0x57172c408e70 -> _proxypad1_0x57172c409bd0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="video/x-raw(memory:NVMM)\l              format: { (string)NV12, (str... }\l               width: [ 1, 2147483647 ]\l              height: [ 1, 2147483647 ]\l           framerate: [ 0/1, 2147483647/1 ]\l", headlabel="ANY"]
+    }
+
+    multiuribin_creator_0x57172c4094a0_src_0x57172c409850 -> _proxypad0_0x57172c280e50 [label="ANY"]
+  }
+
+  multiuribin_0x57172c27fe80_src_0x57172c280b20 -> queue_logger_0_0x57172c3fa830_sink_0x57172c3facd0 [labeldistance="10", labelangle="0", label="                                                  ", taillabel="video/x-raw(memory:NVMM)\l              format: { (string)NV12, (str... }\l               width: [ 1, 2147483647 ]\l              height: [ 1, 2147483647 ]\l           framerate: [ 0/1, 2147483647/1 ]\laudio/x-raw(memory:NVMM)\l              format: { (string)S16LE, (st... }\l              layout: interleaved\l            channels: [ 1, 2147483647 ]\l                rate: [ 1, 2147483647 ]\l", headlabel="ANY"]
+}

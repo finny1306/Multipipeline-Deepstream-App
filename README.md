@@ -49,7 +49,8 @@ docker compose exec deepstream bash
 **Compile the App**
 ```bash
 # Run the new script
-/workspace/scripts/deepstream_v7.sh
+cd /workspace/triton-client/apps 
+make clean && make
 ```
 
 **Get the YOLO Custom Parser**
@@ -83,7 +84,7 @@ cd /root/multipipeline-deepstream && docker compose exec deepstream bash
 ```bash
 # use the venv 
 source /workspace/testenv/bin/activate
-python /workspace/manager_v2.py
+python /workspace/manager_v3.py
 ```
 
 ### 3. Add New Pipelines
@@ -93,8 +94,8 @@ python /workspace/manager_v2.py
 curl -X POST http://localhost:5000/pipelines/spawn \
 -H "Content-Type: application/json" \
 -d '{ 
-		"config_path": "/workspace/configs/config_benchmark1.yml", 
-		"port": 9000 
+		"config_path": "triton-client/configs/nvinferserver/config/config_benchmark2.yml", 
+		"port": 9001
 		}'
 ```
 **To Delete One**

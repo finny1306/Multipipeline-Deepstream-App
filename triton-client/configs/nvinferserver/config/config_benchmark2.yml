@@ -10,12 +10,12 @@ server-app-ctx:
   httpPort: "9001"
   pipeline_width: 1920
   pipeline_height: 1080
-  maxBatchSize: 6
+  maxBatchSize: 1
   batched_push_timeout: 40000
   live_source: 1
   drop_pipeline_eos: 1
 
-dot-stream-count: 1
+dot-stream-count: 0
 
 multiurisrcbin:
   port: 9001
@@ -28,18 +28,34 @@ multiurisrcbin:
   drop-pipeline-eos: 1
 
 demux:
-  max-pads: 6
+  max-pads: 1
+
+source-transform:
+  enable: 1
+  # Resolution — 0 means pass through (use source native resolution)
+  width: 1920
+  height: 1080
+  # Image format: RGBA, NV12, I420, BGRx, GRAY8 (empty = pass through)
+  format: NV12
+  # nvvideoconvert hardware: 0=default, 1=GPU, 2=VIC (Jetson only)
+  compute-hw: 1
+  gpu-id: 0
+  # FPS control — 0 means no videorate injection
+  target-fps: 15
+  drop-only: 1          # 1 = only drop frames (never duplicate/interpolate)
+  max-rate: 0           # Max output rate, 0 = same as target-fps
+ 
 
 branch-streammux:
   width: 1920
   height: 1080
   batched-push-timeout: 40000
-  batch-size: 6
+  batch-size: 1
   num-surfaces-per-frame: 1
 
 primary-gie:
   unique-id: 1
-  enable: 1
+  enable: 0
   plugin-type: 1
   config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_yolo11s.txt
   batch-size: 2
@@ -47,7 +63,7 @@ primary-gie:
 
 secondary-gie0:
   unique-id: 2
-  enable: 1
+  enable: 0
   plugin-type: 1
   config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_ppe.txt
   batch-size: 2
@@ -55,7 +71,7 @@ secondary-gie0:
   operate-on-class-ids: 0
 
 encoder:
-  enable: 1
+  enable: 0
   codec: 1
 
 sink:

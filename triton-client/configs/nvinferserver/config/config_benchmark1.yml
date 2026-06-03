@@ -6,7 +6,7 @@ rest-server:
 
 server-app-ctx:
   httpIp: "0.0.0.0"
-  httpPort: "9000"
+  httpPort: "9004"
   pipeline_width: 1920
   pipeline_height: 1080
   maxBatchSize: 2
@@ -14,10 +14,10 @@ server-app-ctx:
   live_source: 1
   drop_pipeline_eos: 1
 
-dot-stream-count: 1
+dot-stream-count: 0
 
 multiurisrcbin:
-  port: 9000
+  port: 9004
   live-source: 1
   width: 1920
   height: 1080
@@ -36,7 +36,7 @@ branch-streammux:
   batch-size: 2
   num-surfaces-per-frame: 1
 
-primary-gie0:
+primary-gie:
   unique-id: 1
   enable: 1
   plugin-type: 1
@@ -44,7 +44,7 @@ primary-gie0:
   batch-size: 2
   interval: 0
 
-secondary-gie0-1:
+secondary-gie0:
   unique-id: 2
   enable: 1
   plugin-type: 1
@@ -53,38 +53,38 @@ secondary-gie0-1:
   operate-on-gie-id: 1        # ← manager patches the .txt automatically
   operate-on-class-ids: 0
 
-primary-gie1:
-  unique-id: 3
-  enable: 1
-  plugin-type: 1
-  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_vc.txt
-  batch-size: 2
-  interval: 0
+# primary-gie1:
+#   unique-id: 3
+#   enable: 1
+#   plugin-type: 1
+#   config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_vc.txt
+#   batch-size: 2
+#   interval: 0
 
-secondary-gie1-1:
-  unique-id: 4
-  enable: 1
-  plugin-type: 1
-  config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_anpr.txt
-  batch-size: 2
+# secondary-gie1-1:
+#   unique-id: 4
+#   enable: 1
+#   plugin-type: 1
+#   config-file-path: /workspace/configs/nvinferserver/grpc/nvinferserver_primary_anpr.txt
+#   batch-size: 2
 
 preprocess:
   enable: 0
   config-file: config_preprocess.txt
 
 analytics:
-  enable: 0
-  config-file: /workspace/configs/nvinferserver/config_nvdsanalytics.txt
+  enable: 1
+  config-file: /workspace/triton-client/configs/nvinferserver/config_nvdsanalytics.txt
 
 tiler:
-  enable: 0
+  enable: 1
   width: 1920
   height: 1080
   rows: 2
   columns: 2
 
 osd:
-  enable: 0
+  enable: 1
   process-mode: 1
   display-text: 1
   display-bbox: 1
@@ -106,7 +106,7 @@ sink:
   udp-port: 5400
 
 msgbroker:
-  enable: 0
+  enable: 1
   proto-lib: /opt/nvidia/deepstream/deepstream/lib/libnvds_kafka_proto.so
   conn-str: localhost;9092
   topic: deepstream-detections

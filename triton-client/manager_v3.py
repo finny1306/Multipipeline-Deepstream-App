@@ -11,7 +11,7 @@ import atexit
 from flask import Flask, request, jsonify
 
 # ================= CONFIGURATION =================
-BINARY_PATH = "/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-server/deepstream-server-app"
+BINARY_PATH = "/workspace/triton-client/apps/deepstream-server-app"
 TEMP_CONFIG_DIR = "/workspace/temp_configs"
 LOG_DIR = "./logs"
 ORCHESTRATOR_PORT = 5000
